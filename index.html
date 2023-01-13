@@ -93,13 +93,13 @@
                 Sily sa potom prepočítajú na krútiace momenty jednotlivých motorov a posunú riadiacim procesom na nižšej úrovni.
             </p>
             <p>
-                Cieľom projektu je pokúsiť sa nahradiť tento PD-controller, preto vstupom do nášho modelu, bude 6-zložkový vektor
+                Cieľom projektu je pokúsiť sa nahradiť tento PD-controller, preto vstupom do nášho modelu bude 6-zložkový vektor
             (aktuálna poloha, želaná poloha) a výstupom 3 zložkový (vektor síl). Dáta pre trénovanie modelu sme generovali
             pomocou simulátora Gazebo. Nohou sme hýbali periodicky v smere jednotlivých osí x, y, z. Menili sme amplitúdu pohybu
             a frekvenciu. Nižšie sú videá zo simulácie z generovania dát. Kódy ku generovaniu dát sa nenachádzajú na GitHub-e,
-            lebo by som s nimi musela zverejniť aj firemné kódy a aj tak generovanie dát nebolo zaujímave, keďžesa jednalo len o zápis
+            lebo by som s nimi musela zverejniť aj firemné kódy a aj tak generovanie dát nebolo zaujímavé, keďže sa jednalo len o zápis
             do súboru počas behu simulácie. Pohyb po osi y má menšiu amplitúdu, keďže je obmedzený
-            rozsahom motorov. Čas v simulácii beží niekoľkokrát pomalšie, keďže ja výpočtovo veľmi náročná a nestíha bežať real-time.
+            rozsahom motorov. Čas v simulácii beží niekoľkokrát pomalšie, keďže je výpočtovo veľmi náročná a nestíha bežať real-time.
 
             </p> 
             
@@ -251,9 +251,9 @@
         <div class="row g-0" style="margin-left: 2em;">
             <p class="mb-4" >
                 Ďalej som pokračovala zapojením môjho modelu s nájdenými hyperparametrami do procesu ovládania 
-                robota. Táto časť sa v repozitári na GitHube nenachádza, keďže sa náchadza v kódoch patriacich firme
-                a nemám povolenie na ich zverenenie. Použila som však rovnaké knižnice ako pri hľadaní hyperparametrov.
-                Výsledok je vidieť na nižšie na videách zo simulácie. Videá sú analogické k tým na začiatku, kde sme
+                robota. Táto časť sa v repozitári na GitHube nenachádza, keďže na jej bežanie sú potrebné aj kódy patriace firme.
+                Na výpočet výslednej sily som použila rovnaké knižnice ako pri hľadaní hyperparametrov.
+                Výsledok je vidieť nižšie na videách zo simulácie. Videá sú analogické k tým na začiatku, kde sme
                 nohu ovládali pomocou PD-controllera.
             </p>
             <div class="row g-5">
