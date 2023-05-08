@@ -1,341 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>Projekt ML</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
-
-    <!-- Favicon -->
-    <!-- <link href="img/favicon.ico" rel="icon"> -->
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+	<title>My Diploma Thesis</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
-<div>
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm px-5 py-3 py-lg-0">
-        <a href="index.html" class="navbar-brand p-0">
-            <h1 class="m-0 text-uppercase text-primary">Projekt ML - Zuzana Mačicová</h1>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto py-0 me-n3">
-                <a href="https://github.com/ZuzanaMa/ML-project" class="nav-item nav-link active">GitHub</a>
-                <a href="ML - projekt.pdf" class="nav-item nav-link active">Summary</a>
-            </div>
-        </div>
-    </nav>
-    <!-- Navbar End -->
-
-    <div class="container-fluid bg-secondary p-0">
-        <div class="row g-0" style="margin-left: 2em;">
-            <p class="mb-4" >
-                Tento projekt sa venuje riadeniu nohy robota pri jednoduchých pohyboch. Dáta sme získali 
-                pomocou PD-controllera a simulačného sofvéru s Gazebo. Využili sme polynomiálnu regesiu.
-                Nakoniec sme natrénovaný model otestovali v simulácii. 
+<body>
+	<header>
+		<h1>Adaptívne riadenie kroku štvornohého robota</h1>
+        <h3>Školiteľ: prof. RNDr. Roman Ďurikovič, PhD., Autor:  Zuzana Mačicová</h3>
+        </header>
+        <div class="about">
+            <h2>Diplomová práca</h2>
+            <div class="containerAbout">
+                <div>
+		    <p class="about_p">Adaptívne riadenie je v súčasnosti jedným z najpopulárnejších prístupov pre ovládanie
+            kroku štvornohých robotov. V porovnaní s konvenčnejšími metódami dokáže generovať vysoko
+            dynamické pohyby a zároveň zabezpečiť stabilitu a robustnosť kroku. Napriek neustále zvyšujúcemu
+            sa výkonu mikropočítačov a vývoju stále efektívnejších optimalizačných riešičov je však problém
+            kráčania stále komplexný a jeho úspešné formulácie sa spoliehajú na mnohé zjednodušenia a
+            zanedbania skutočných vlastností riadeného systému. Práve efektívne formulácie zohľadňujúce čo
+            možno najviac relevantných vplyvov na krok sú v súčasnosti predmetom výskumu. Cieľom práce je
+            analyzovať a navrhnúť model adaptívneho riadenia pre štvornohého robota operujúceho v zložitom
+            prostredí. Táto téma bude vypracovaná v spolupráci s firmou Panza Robotics s.r.o.
             </p>
+            <h3>Ciele:</h3>
+            <ul>
+                <li>Naštuduvať problematiku riadenia kroku kráčajúcich robotov.</li>
+                <li>Analýza možností formulácii problému optimálneho riadenia kroku.</li>
+                <li>Návrh a implementácia adaptívneho riadenia pre štvornohého robota.</li>
+                <li>Testovanie riešenia.</li>
+                <!-- Add more tasks as needed -->
+            </ul>
         </div>
-    </div>
-    
-    
-
-    <!-- About Start -->
-    <div class="container-fluid bg-secondary p-0">
-        <div class="row g-0">
-            <div class="col-lg-6 py-6 px-5">
-                <!-- <img class="img-fluid" src="img/artaban.png" alt=""> -->
-                <iframe width="620" height="415"
-                    src="https://www.youtube.com/embed/Cbhh6-Kxeyg?loop=1&autoplay=1">
-                </iframe>
-            </div>
-            <div class="col-lg-6">
-                <div class="h-100 d-flex flex-column justify-content-center bg-primary p-5">
-                    <div class="d-flex text-white mb-5">
-                        Artaban je štvornohý robot, navrhnutý na vykonávanie činností rizikových pre človeka,
-                        prípadne monitorovanie nebezpečných oblastí. Jeho nohy obsahujú kardanový 
-                        a štvortyčový mechanizmus, preto je ich riadenie netriviálne. 
-                    </div>
-                </div>
-            </div>
+            <img class ="half_page_img" src="images/artaban.png" alt="Artaban visualisation">
         </div>
-    </div>
-    <!-- About End -->
-    
-
-    <!-- Services Start -->
-    <div class="container-fluid pt-6 px-5">
-        <div class=" mx-auto mb-5">
-            <p>Aktuálne riadenie prebieha pomocou PD-controllera. PD controller je zjednodušený PID-controller bez
-                integrálnej časti. PID-controller je skratka pre Proportional-Integral-Derivative. Čize skladá sa z 3 controllerov,
-                ktorých výstup sa kombinuje do jedného signálu. Pri riadení Artabana je vstupom do controllera vektor aktuálnych
-                súradníc konca nohy (x, y, z) a želaných súradníc, kam chceme nohu dostať. Výstupom je vektor síl (Fx, Fy, Fz). 
-                Sily sa potom prepočítajú na krútiace momenty jednotlivých motorov a posunú riadiacim procesom na nižšej úrovni.
-            </p>
-            <p>
-                Cieľom projektu je pokúsiť sa nahradiť tento PD-controller, preto vstupom do nášho modelu bude 6-zložkový vektor
-            (aktuálna poloha, želaná poloha) a výstupom 3 zložkový (vektor síl). Dáta pre trénovanie modelu sme generovali
-            pomocou simulátora Gazebo. Nohou sme hýbali periodicky v smere jednotlivých osí x, y, z. Menili sme amplitúdu pohybu
-            a frekvenciu. Nižšie sú videá zo simulácie z generovania dát. Kódy ku generovaniu dát sa nenachádzajú na GitHub-e,
-            lebo by som s nimi musela zverejniť aj firemné kódy a aj tak generovanie dát nebolo zaujímavé, keďže sa jednalo len o zápis
-            do súboru počas behu simulácie. Pohyb po osi y má menšiu amplitúdu, keďže je obmedzený
-            rozsahom motorov. Čas v simulácii beží niekoľkokrát pomalšie, keďže je výpočtovo veľmi náročná a nestíha bežať real-time.
-
-            </p> 
-            
         </div>
-        <div class="row g-5">
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item bg-secondary text-center px-5">
-                    <iframe width="520" height="315"
-                    src="https://www.youtube.com/embed/qkEah9F9m8c?loop=1&autoplay=1">
-                </iframe>
-                    <h3 class="mb-3">pohyb po osi x, aplitúda = 4cm, frekvencia = 0.5Hz</h3>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item bg-secondary text-center px-5">
-                    <iframe width="520" height="315"
-                    src="https://www.youtube.com/embed/X2X5Z1WVqlU?loop=1&autoplay=1">
-                </iframe>
-                    <h3 class="mb-3">pohyb po osi y, aplitúda = 2cm, frekvencia = 0.5Hz</h3>    
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item bg-secondary text-center px-5">
-                    <iframe width="520" height="315"
-                    src="https://www.youtube.com/embed/S__BfiAg-W4?loop=1&autoplay=1">
-                </iframe>
-                    <h3 class="mb-3">pohyb po osi z, aplitúda = 4cm, frekvencia = 0.2Hz</h3>  
-                </div>
-            </div>
-           
-        </div>
-    </div>
-    <!-- Services End -->
-
-
-    <!-- Features Start -->
-    <div class="container-fluid py-6 px-5">
-        <div class="text-center mx-auto mb-5">
-            <table style="width:75%; margin-left: auto;
-            margin-right: auto;">
-                <tr>
-                  <th>Os X (amplitúda/frekvencia)</th>
-                  <th>Os Y (amplitúda/frekvencia)</th>
-                  <th>Os Z (amplitúda/frekvencia)</th>
-                </tr>
-                <tr>
-                  <td>0.02m, 0.4Hz</td>
-                  <td>0.015m, 0.3Hz</td>
-                  <td>0.02m, 0.4Hz</td>
-                </tr>
-                <tr>
-                    <td>0.03m, 0.3Hz</td>
-                    <td>0.01m, 0.4Hz</td>
-                    <td>0.03m, 0.3Hz</td>
-                  </tr>
-                  <tr>
-                    <td>0.04m, 0.2Hz</td>
-                    <td>0.02m, 0.2Hz</td>
-                    <td>0.04m, 0.2Hz</td>
-                  </tr>
-                  <tr>
-                    <td>0.04m, 0.5Hz</td>
-                    <td>0.02m, 0.5Hz</td>
-                    <td>0.04m, 0.5Hz</td>
-                  </tr>
-              </table>
-        </div>
-
-    </div>
-    <!-- Features Start -->
-
-    
-    <!-- Services Start -->
-    <div class="container-fluid pt-6 px-5" style="margin-bottom: 2em;">
-        <div class=" mx-auto mb-5">
-            Začala som vizualizáciou dát, konkrétne výsledných síl a výpočtom korelácie síl. Nikde mi nevyšla silná
-            korelácia (nad 75%). Teda výstupné sily nie sú od seba závislé. 
-        </div>
-        <div class="row g-5">
-            <div class="col-lg-4">
-                <div class="team-item position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/fig_x_y.png" alt="">
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-item position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/fig_y_z.png" alt="">
-                    
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-item position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/fig_x_z.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class=" mx-auto mb-5">
-            <p>
-            Keďže výstupné sily nie sú závislé tak aj predikciu môžeme robiť oddelene. Aj PD-controller prepočíta
-            jednotlivé sily nezávisle od seba.
-            Teda nebudeme mať jeden model,
-            ktorý má 3 výstupy, ale natrénujeme 3 modely, z ktorých každý bude predikovať silu v jednom smere.
-            Dáta som rozdelila na 3 časti. 80% trénovacia množina, 15% validačná množina a 5% testovacia množina. Poradie dátových
-            bodov som náhodne zmenila už pri načítavaní. Skúšala som dáta aj normalizovať, avšak neprinieslo to významné zlepšenie výsledkov.
-        </p>
-        <p>
-            Využila som polynomiálnu regresiu 1. až 7. stupňa. Vyššieho stupňa som ani neskúšala, keďže počet parametrov
-            bol už privysoký. Už pri 7.stupni bol počet parametrov vyše 1700 a trénovacích dátových bodov bolo 4797. Na
-            obrázkoch nižšie vidíme vývoj trénovacej (modrá) a validačnej (oranžová) chyby. Na výpočet chyby som využila 
-            priemernú kvadratickú chybu.
-        </p>
-        </div>
-        <div class="row g-5">
-            <div class="col-lg-4">
-                <div class="team-item position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/err_x.png" alt="">
-                </div>
-                <h2>Fx</h2>
-                <p>Najmenšia validačná chyba je pre polynóm 1.stupňa, teda pre klasickú lineárnu regresiu.
-                    Testovacia chyba je 2.2947.
-                </p>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-item position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/err_y.png" alt="">
-                    <h2>Fy</h2>
-                    <p>
-                        Najmenšia validačná chyba je pre polynóm 3.stupňa. Testovacia
-                        chyba je 0.0968.
-                    </p>
-                    
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="team-item position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/err_z.png" alt="">
-                    <h2>Fz</h2>
-                    <p>
-                        Najmenšia validačná chyba je pre polynóm 3.stupňa. Testovacia
-                        chyba je 0.8744.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Services End -->
-
-    <div class="container-fluid bg-secondary p-0">
-        <div class="row g-0" style="margin-left: 2em;">
-            <p class="mb-4" >
-                Ďalej som pokračovala zapojením môjho modelu s nájdenými hyperparametrami do procesu ovládania 
-                robota. Táto časť sa v repozitári na GitHube nenachádza, keďže na jej bežanie sú potrebné aj kódy patriace firme.
-                Na výpočet výslednej sily som použila rovnaké knižnice ako pri hľadaní hyperparametrov.
-                Výsledok je vidieť nižšie na videách zo simulácie. Videá sú analogické k tým na začiatku, kde sme
-                nohu ovládali pomocou PD-controllera.
-            </p>
-            <div class="row g-5">
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item bg-secondary text-center px-5">
-                        <iframe width="520" height="315"
-                        src="https://www.youtube.com/embed/WguVD3o8ayw?loop=1&autoplay=1">
-                    </iframe>
-                        <h3 class="mb-3">pohyb po osi x, aplitúda = 4cm, frekvencia = 0.5Hz</h3>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item bg-secondary text-center px-5">
-                        <iframe width="520" height="315"
-                        src="https://www.youtube.com/embed/1hgdWto3iIU?loop=1&autoplay=1">
-                    </iframe>
-                        <h3 class="mb-3">pohyb po osi y, aplitúda = 2cm, frekvencia = 0.5Hz</h3>    
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item bg-secondary text-center px-5">
-                        <iframe width="520" height="315"
-                        src="https://www.youtube.com/embed/rWnMSpVufB8?loop=1&autoplay=1">
-                    </iframe>
-                        <h3 class="mb-3">pohyb po osi z, aplitúda = 4cm, frekvencia = 0.2Hz</h3>  
-                    </div>
-                </div>
-               
-            </div>
-            <p>
-                Vidíme, že noha sa nehýbe podľa očakávaní. Je to spôsoboné pravdepodobne dátami, ktoré som si vygenerovala.
-                Napríklad pri pohybe v rámci z-ovej osi vidíme, že ako náhle sa noha dostane do polohy, v ktorej sme generovali dáta,
-                tak sa pohne správnym smerom. Potom sa však vychýli do priestoru, v ktorom sme dáta negenerovali a tam sa nespráva
-                ideálne. Pomôcť by mohol komplexnejší dataset, ideálne taký, ktorý by obsahoval aj dáta z nejakých zložitejších pohybov.
-                </p>
-                <p>
-                    Taktiež pre x-ovú zložku sily nám vyšla celkom veľká chyba. To sa prejavilo na nohe ako neustále hojdanie
-                    v smere x-ovej osi. Vidíme v prvom videu, že v rámci osi y si noha celkom drží polohu (až na jednu výchylku). Pre Fy
-                    sa nám podarilo dosiahnuť aj najmenšiu testovaciu chybu.
-                </p>
-                <p>
-                Celkovo je však PD-controller robustnejší, keďže sa vie dostať z ľubovoľnej polohy tam kam má. Jeho nevýhodou je
-                zdĺhavé hľadanie parametrov pre jeho jednotlivé zložky, ktoré prebiehalo manuálne metódou pokus-omyl. Oproti tomu 
-                trénovanie modelu je rýchle a nevyžadaju sa zásahy človeka, avšak bolo by potrebné nájsť lepší model.
-                </p>
-                <p>
-                K tomu by mohla pomôcť aj nejaká forma reinforcement learning-u, avšak k tomu by sme potrebovali aj beh simulácie,
-                ktorá je veľmi náročná na zdroje. Taktiež má odchýlky od skutočnosti a trénovanie priamo na hardvérovej
-                nohe by vyžadovalo ľudský dozor, ktorý by proces zastavil v prípade, že by hrozilo poškodenie súčiastok. 
-                To by však spomalilo trénovací proces, keďže by trénovanie nemohlo bežať nepretržite.
-                </p>
-                <p>
-                    Z pohľadu časovej náročnosti vedie PD-controller keďže výpočet trvá v priemere kratšie, ako môžeme vidieť na grafe nižie.
-                    Náš model je v priemere 30x pomalší. 
-                </p>
-
-                
-                <img src="img/time.png" style="width: 50%; margin-left: auto; margin-right: auto;" alt="">
-            </p>
-        </div>
-    </div>
-
-    
-    <div class="container-fluid bg-dark text-secondary text-center border-top py-4 px-5" style="border-color: rgba(256, 256, 256, .1) !important;">
-        <p class="m-0">&copy; <a class="text-secondary border-bottom" href="#">Zuzana Macicova</a>. All Rights Reserved. Designed by <a class="text-secondary border-bottom" href="https://htmlcodex.com">HTML Codex</a></p>
-    </div>
-    <!-- Footer End -->
-
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+	<main>
+		<div class="container">
+			<div class="task-list">
+				<h2>Kalendár</h2>
+				<ul>
+					<li>december 2022 - PD-Controller</li>
+					<li>január 2023 - štúdium problematiky</li>
+					<li>február 2023 - štúdium problematiky</li>
+                    <li>marec 2023 - skúšanie frameworkov</li>
+                    <li>apríl 2023 - modelovanie 4tyč. mechanizmu v PyBullete, dvojlink. novha v Casadi, ŠVK</li>
+                    <li>9.máj 2023 - hodnotenie projektového seminára</li>
+                    <li>leto 2023 - dynamika nôh</li>
+                    <li>jeseň 2023 - spojenie dynamiky s generátorom kroku</li>
+                    <li>zima 2023/24 - testovanie v simulácii na zjednodušenom robotovi, v simulácii na celom robotovi, na skutočnom hardvéri</li>
+                    <li>jar 2024 - písanie práce</li>
+					<!-- Add more tasks as needed -->
+				</ul>
+			</div>
+			<div class="image-list">
+				<h2>Pictures</h2>
+				<img src="image1.jpg" alt="Image 1">
+				<img src="image2.jpg" alt="Image 2">
+				<!-- Add more images as needed -->
+			</div>
+		</div>
+	</main>
+	<footer>
+		<p>Copyright © 2023</p>
+	</footer>
 </body>
-
 </html>
