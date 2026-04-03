@@ -1,137 +1,249 @@
 <!DOCTYPE html>
-<html>
+<html lang="sk">
 <head>
-	<title>My Diploma Thesis</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Svadba | Zuzka & Roman</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --forest-green: #37473a; 
+      --sage-green: #839788;  
+      --white: #ffffff;
+      --off-white: #fcfcfc;
+      --text-dark: #2b332c;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      margin: 0;
+      padding: 0;
+      background: var(--off-white);
+      color: var(--text-dark);
+      letter-spacing: 0.05em;
+      scroll-behavior: smooth;
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      transition: opacity 0.5s ease-out, transform 0.6s ease-out;
+      scroll-snap-align: start;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      filter: brightness(0.85); 
+    }
+
+    .overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--white);
+      text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      width: 100%;
+    }
+
+    .overlay h1 {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 6.5rem; /* Increased for better visibility */
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+
+    .overlay p {
+      font-size: 1.8rem; /* Increased date size */
+      margin-top: 0.5rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    section {
+      max-width: 800px;
+      margin: 3rem auto;
+      background: var(--white);
+      padding: 3rem;
+      border-radius: 4px; 
+      box-shadow: 0 10px 30px rgba(55, 71, 58, 0.05); 
+      text-align: center; 
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--forest-green);
+      font-weight: 600;
+      font-size: 2.4rem; /* Increased heading size */
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      border-bottom: 1px solid var(--sage-green);
+      display: inline-block;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      font-size: 1.5rem; /* Grandma-approved reading size! (approx 24px) */
+      line-height: 1.7; /* Increased line spacing for readability */
+      color: var(--text-dark);
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .detail-item h3 {
+      font-family: 'Pinyon Script', cursive;
+      color: var(--sage-green);
+      font-size: 3rem; /* Larger cursive headings */
+      margin: 0 0 0.5rem 0;
+      font-weight: 400;
+    }
+
+    /* Making sure the strong tags stand out well */
+    p strong {
+      font-size: 1.6rem; 
+      color: var(--forest-green);
+    }
+
+    .rsvp-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1.2rem 3rem; /* Larger, easier to tap on phones */
+      background: var(--forest-green);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 1.2rem; /* Larger button text */
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: 0.4s ease;
+      border: 1px solid var(--forest-green);
+    }
+
+    .rsvp-button:hover {
+      background: var(--white);
+      color: var(--forest-green);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: var(--forest-green);
+      color: var(--white);
+    }
+
+    footer p {
+      color: var(--sage-green);
+      font-family: 'Pinyon Script', cursive;
+      font-size: 3rem; /* Larger footer text */
+      margin: 0;
+    }
+
+    .map-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: var(--sage-green);
+      text-decoration: underline;
+      font-size: 1.3rem; /* Nice and readable */
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .map-link:hover {
+      color: var(--forest-green);
+    }
+  </style>
 </head>
 <body>
-	<header>
-		<h1>Adaptívne riadenie kroku štvornohého robota</h1>
-        <h3>Školiteľ: prof. RNDr. Roman Ďurikovič, PhD., Autor:  Zuzana Mačicová</h3>
-        </header>
-        <div class="about">
-            <h2>Diplomová práca</h2>
-            <div class="containerAbout">
-                <div>
-		    <p class="about_p">Adaptívne riadenie je v súčasnosti jedným z najpopulárnejších prístupov pre ovládanie
-            kroku štvornohých robotov. V porovnaní s konvenčnejšími metódami dokáže generovať vysoko
-            dynamické pohyby a zároveň zabezpečiť stabilitu a robustnosť kroku. Napriek neustále zvyšujúcemu
-            sa výkonu mikropočítačov a vývoju stále efektívnejších optimalizačných riešičov je však problém
-            kráčania stále komplexný a jeho úspešné formulácie sa spoliehajú na mnohé zjednodušenia a
-            zanedbania skutočných vlastností riadeného systému. Práve efektívne formulácie zohľadňujúce čo
-            možno najviac relevantných vplyvov na krok sú v súčasnosti predmetom výskumu. Cieľom práce je
-            analyzovať a navrhnúť model adaptívneho riadenia pre štvornohého robota operujúceho v zložitom
-            prostredí. Táto téma bude vypracovaná v spolupráci s firmou Panza Robotics s.r.o.
-            </p>
-            <h3>Ciele:</h3>
-            <ul>
-                <li>Naštuduvať problematiku riadenia kroku kráčajúcich robotov.</li>
-                <li>Analýza možností formulácii problému optimálneho riadenia kroku.</li>
-                <li>Návrh a implementácia adaptívneho riadenia pre štvornohého robota.</li>
-                <li>Testovanie riešenia.</li>
-                <!-- Add more tasks as needed -->
-            </ul>
-            <br>
-            <a href="macicova_dp_v0_1.pdf">Ukážka práce</a>
-            <a href="seminar2.pdf">Prezentácia</a>
-        </div>
-            <img class ="half_page_img" src="images/artaban.png" alt="Artaban visualisation">
-        </div>
-        </div>
-	<main>
-		<div class="container">
-			<div class="task-list">
-				<h2>Kalendár</h2>
-				<ul>
-					<li>december 2022 - PD-Controller</li>
-					<li>január 2023 - štúdium problematiky</li>
-					<li>február 2023 - štúdium problematiky</li>
-                    <li>marec 2023 - skúšanie frameworkov</li>
-                    <li>apríl 2023 - modelovanie 4tyč. mechanizmu v PyBullete,, ŠVK</li>
-                    <li>9.máj 2023 - hodnotenie projektového seminára</li>
-                    <li>leto 2023 - úprava Quad SDK na Artabana, doplnenie nevyhnutných pomocných funkcií ako prepočet rýchlostí v rámci 
-                        4tyč. mechanizmu, testovanie chôdze bez dynamiky na hardvéri
-                    </li>
-                    <li>september 2023 - dynamika predných nôh</li>
-                    <li>október 2023 - testovanie dynamiky predných nôh simulácia/hardvér, písanie práce</li>
-                    <li>november 2023 - odvodzovanie inverznej dynamiky zadných nôh, písanie práce</li>
-                    <li>december 2023 - implementácia inverznej dynamiky zadných nôh</li>
-                    <li>január 2023 - testovanie inverznej dynamiky zadných nôh v simulácií</li>
-                    <li>február 2023 - testovanie inverznej dynamiky na hardvéri</li>
-                    <li>marec-máj 2023 - písanie práce</li>
-					
-					
-					<!-- Add more tasks as needed -->
-				</ul>
-			</div>
-			<div class="image-list">
-                
-				<!-- <h2>Pictures</h2>
-                <iframe width="520" height="315"
-                    src="https://www.youtube.com/embed/S__BfiAg-W4?loop=1&autoplay=1">
-                </iframe>
-                    <br>
-                <a href="LaTex_Diplomova_Praca.pdf">kostra prace</a> -->
-				<!-- <img src="image1.jpg" alt="Image 1">
-				<img src="image2.jpg" alt="Image 2"> -->
-				<!-- Add more images as needed -->
-			</div>
-		</div>
-        <div class="container">
-            <h2>Výsledky</h2>
-			<div class="image-list">
-				<h3>Chôdza bez inverznej dynamiky</h3>
-                <a href="https://photos.app.goo.gl/otFG5c5c9AodjMRu7">chôdza s primeranou dĺžkou kroku</a>
-                <br>
-                <a href="https://photos.app.goo.gl/q3uDzuYbJ3Uykcrd8">chôdza s dlhým krokom</a>
-<br>
-            <img class ="half_page_img"  width="60%" src="images/Screenshot from 2023-10-24 11-45-46.jpg" alt="Artaban visualisation">
+  <header class="hero">
+    <img class="hero-img" src="snubna_fotka.jpg" alt="Zuzka a Roman snubná fotka" />
+    <div class="overlay">
+      <h1>Zuzka & Roman</h1>
+      <p>10 . 10 . 2026</p>
+      <p>15 : 30</p>
+      <p>Kostol sv. Michala</p>
+    </div>
+  </header>
 
-				
-			</div>
-			<div class="image-list">
-                <h3>Chôdza s inverznou dynamikou</h3>
-                <a href="https://photos.app.goo.gl/1jyPSPpsYidaGgvv5">chôdza s primeranou dĺžkou kroku</a>
-                <br>
-                <a href="https://photos.app.goo.gl/5Y5WeccTYajYXZ3A9">chôdza s dlhým krokom</a>
-                <br>
+  <section id="details">
+    <h2>Detaily Svadby</h2>
+    <div class="details-grid">
+      <div class="detail-item">
+        <h3>Kedy</h3>
+        <p><strong>10. Október 2026</strong><br>o 15:30</p>
+      </div>
+      <div class="detail-item">
+        <h3>Obrad</h3>
+        <p><strong>Kostol sv. Michala</strong><br>Bratislava</p>
+        <a href="https://maps.google.com/?q=Kostol+sv.+Michala,+Bratislava" target="_blank" class="map-link">Otvoriť v mape</a>
+      </div>
+      <div class="detail-item">
+        <h3>Hostina</h3>
+        <p><strong>Vodárenské múzeum</strong><br>Bratislava</p>
+        <a href="https://maps.google.com/?q=Vodárenské+múzeum,+Bratislava" target="_blank" class="map-link">Otvoriť v mape</a>
+      </div>
+      <div class="detail-item">
+        <h3>Presun</h3>
+        <p>Obe miesta sú od seba vzdialené len <strong>5 minút chôdze</strong>. Organizovaný odvoz z kostola na hostinu preto nie je zabezpečený.</p>
+      </div>
+    </div>
+  </section>
 
-            <img class ="half_page_img" width="60%" src="images/Screenshot from 2023-10-24 11-50-17.jpg" alt="Artaban visualisation">
- 
-                
-				<!-- <h2>Pictures</h2>
-                <iframe width="520" height="315"
-                    src="https://www.youtube.com/embed/S__BfiAg-W4?loop=1&autoplay=1">
-                </iframe>
-                    <br>
-                <a href="LaTex_Diplomova_Praca.pdf">kostra prace</a> -->
-				<!-- <img src="image1.jpg" alt="Image 1">
-				<img src="image2.jpg" alt="Image 2"> -->
-				<!-- Add more images as needed -->
-			</div>
-		</div>
-   
+  <section id="gifts">
+    <h2>Dary</h2>
+    <p>Najväčším darom pre nás je Vaša prítomnosť. 
+      Ak by ste nás však chceli obdarovať, 
+      veľmi nám pomôže finančný príspevok do nášho spoločného života 
+      namiesto vecných darov. 
+      Prosím nenoste veľké kytice, viac nás poteší jeden symbolický kvet.</p>
+  </section>
 
-        <div >
-            <h2>Dôležité zdroje</h2>
-            <ul>
-                <li id="zdroj"> Roy Featherstone. Rigid Body Dynamics Algorithms, pages 161-165. Springer New York, NY, 2007</li>
-                    <li><a  href="https://www.andrew.cmu.edu/user/amj1/papers/Quad_SDK_ICRA_Abstract.pdf">Quad SDK</a></li>
-                <li><a href="https://arxiv.org/pdf/1909.06586.pdf">Highly Dynamic Quadruped Locomotion via Whole-Body Impulse Control and Model Predictive Control</a></li>
-                <li><a href="https://arxiv.org/abs/2209.05375">Inverse-Dynamics MPC via Nullspace Resolution</a></li>
-            </ul>
+  <section id="rsvp">
+    <h2>Potvrdenie účasti</h2>
+    <p>Prosíme Vás o potvrdenie Vašej účasti do 30.6.2026, prosím vyplňte dotazník za každého hosťa zvlášť.</p>
+    <a class="rsvp-button" href="https://forms.gle/4BQDWbgvd4TamcoB7">Potvrdiť účasť (RSVP)</a>
+  </section>
 
-            <a href="references.bib">Ostatné zdroje</a>
-            
-            
+  <section id="dresscode">
+    <h2>Dresscode</h2>
+    <p>Elegantne, ale pohodlne. Chceme, aby ste sa s nami cítili dobre, preto dresscode neriešte príliš upäto. 
+      Stačí pekná košeľa bez kravaty a šaty, v ktorých sa dá pretancovať noc (tenisky sú u nás veľké ÁNO).
+    </p>
+  </section>
 
-           
-        </div>
-	</main>
-	<!-- <footer>
-		<p>Copyright © 2023</p>
-	</footer> -->
+
+  <footer>
+    <p>Ďakujeme</p>
+  </footer>
+
+  <script>
+    const hero = document.querySelector('.hero');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const opacity = Math.max(1 - scrollY / 700, 0);
+      const scale = Math.max(1 - scrollY / 1200, 0.95);
+      hero.style.opacity = opacity;
+      hero.style.transform = `scale(${scale})`;
+    });
+  </script>
 </body>
 </html>
