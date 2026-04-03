@@ -8,7 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400..700;1,400..700&family=Petit+Formal+Script&display=swap" rel="stylesheet">
 
+  
   <style>
     :root {
       --forest-green: #37473a; 
@@ -19,7 +22,10 @@
     }
 
     body {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: "Gelasio", serif;
+      font-optical-sizing: auto;
+      font-weight: 200;
+      font-style: normal;
       margin: 0;
       padding: 0;
       background: var(--off-white);
@@ -58,20 +64,23 @@
     }
 
     .overlay h1 {
-      font-family: 'Pinyon Script', cursive;
-      font-size: 6.5rem; /* Increased for better visibility */
+      font-family: "Petit Formal Script", cursive;
+      font-size: 4.5rem; /* Increased for better visibility */
       font-weight: 400;
       margin: 0;
       letter-spacing: 2px;
     }
 
     .overlay p {
-      font-size: 1.8rem; /* Increased date size */
-      margin-top: 0.5rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      font-weight: 600;
+        font-size: 1.8rem;
+        margin-top: 0.5rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-weight: 600;
+        /* Add the line below */
+        text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.6), 0px 2px 4px rgba(0, 0, 0, 0.3);
     }
+  
 
     section {
       max-width: 800px;
@@ -110,9 +119,9 @@
     }
 
     .detail-item h3 {
-      font-family: 'Pinyon Script', cursive;
+      font-family: "Petit Formal Script", cursive;
       color: var(--sage-green);
-      font-size: 3rem; /* Larger cursive headings */
+      font-size: 2rem; /* Larger cursive headings */
       margin: 0 0 0.5rem 0;
       font-weight: 400;
     }
@@ -153,7 +162,7 @@
 
     footer p {
       color: var(--sage-green);
-      font-family: 'Pinyon Script', cursive;
+      font-family: "Petit Formal Script", cursive;
       font-size: 3rem; /* Larger footer text */
       margin: 0;
     }
