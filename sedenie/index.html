@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Zasadací poriadok</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400..700;1,400..700&family=Petit+Formal+Script&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #2b332c;
+    --green: #37473a;
+    --sage: #839788;
+    --muted: #6b756c;
+    --paper: #f7f6f1;
+    --card: #ffffff;
+    --line: #dcdfd7;
+    --bride: #b5727c;
+    --groom: #52718f;
+    --crew: #9a8f7a;
+    --allergy: #c2410c;
+    --diet: #4d7c0f;
+    --hit: #b45309;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Gelasio", Georgia, serif;
+  }
+  header {
+    position: sticky; top: 0; z-index: 5;
+    background: rgba(247, 246, 241, .96);
+    backdrop-filter: blur(4px);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 16px;
+  }
+  .head-row { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; max-width: 1400px; margin: 0 auto; }
+  h1 { font-family: "Petit Formal Script", cursive; font-weight: 400; color: var(--green); font-size: 28px; margin: 0; }
+  .stats { color: var(--muted); font-size: 14px; }
+  .stats b { color: var(--ink); }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-left: auto; }
+  button {
+    font: inherit; font-size: 14px;
+    background: var(--card); color: var(--green);
+    border: 1px solid var(--sage); border-radius: 6px;
+    padding: 6px 12px; cursor: pointer;
+  }
+  button:hover { background: #eef1ea; }
+  button[aria-pressed="true"] { background: var(--green); color: #fff; border-color: var(--green); }
+  input[type="search"] {
+    font: inherit; font-size: 14px; padding: 6px 10px; width: 200px;
+    border: 1px solid var(--line); border-radius: 6px; background: var(--card);
+  }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--muted); }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
+  .flag-a { color: var(--allergy); font-weight: 700; }
+  .flag-d { color: var(--diet); font-weight: 700; }
+
+  main { max-width: 1400px; margin: 0 auto; padding: 16px 16px 40px; }
+  h2 {
+    font-family: "Petit Formal Script", cursive; font-weight: 400;
+    color: var(--green); font-size: 26px; margin: 26px 0 10px;
+  }
+  h2 small { font-family: "Gelasio", serif; font-size: 14px; color: var(--muted); margin-left: 8px; }
+  .floor { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 4px 16px 16px; margin-bottom: 18px; }
+  .main-table { max-width: 720px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 4px 12px; }
+  .table-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; margin-top: 6px; }
+  .table-row > div { flex: 0 1 330px; }
+  .table-row:has(> div:nth-child(2):last-child) { column-gap: 110px; }
+  svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+  /* SVG styling */
+  .tbl-top { fill: #f3f5f0; stroke: var(--sage); stroke-width: 1.5; }
+  .tnum { font-family: "Gelasio", serif; font-size: 30px; font-weight: 600; fill: var(--green); text-anchor: middle; }
+  .tname { font-family: "Gelasio", serif; font-size: 16px; font-weight: 600; fill: var(--green); text-anchor: middle; }
+  .tcount { font-size: 12px; fill: var(--muted); text-anchor: middle; }
+  .tlabel { font-family: "Petit Formal Script", cursive; font-size: 20px; fill: var(--green); text-anchor: middle; }
+  .seat { cursor: default; outline: none; }
+  .seat text { font-size: 15.5px; fill: var(--ink); dominant-baseline: central; }
+  .seat .flag-a { fill: var(--allergy); font-size: 13px; }
+  .seat .flag-d { fill: var(--diet); font-size: 13px; }
+  .chair { stroke-width: 2; }
+  .side-bride .chair { fill: #f3e3e5; stroke: var(--bride); }
+  .side-groom .chair { fill: #e2e9f0; stroke: var(--groom); }
+  .side-crew .chair { fill: #efebe3; stroke: var(--crew); }
+  .seat:hover text, .seat:focus text, .seat.active text { text-decoration: underline; }
+  .seat:focus .chair, .seat.active .chair { stroke-width: 3.5; }
+  .searching .seat:not(.hit), .searching .row:not(.hit) { opacity: .22; }
+  .seat.hit text { fill: var(--hit); font-weight: 700; }
+
+  /* Hover card */
+  .tip {
+    position: fixed; z-index: 10; max-width: 300px; pointer-events: none;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(43, 51, 44, .18);
+    padding: 10px 14px; font-size: 14px; line-height: 1.4;
+  }
+  .tip .tn { font-size: 17px; font-weight: 700; color: var(--green); }
+  .tip .tf { color: var(--ink); }
+  .tip .tm { color: var(--muted); font-size: 12.5px; margin-bottom: 4px; }
+  .tip .ta, .tip .td, .tip .tx { margin-top: 6px; }
+  .tip .ta b { color: var(--allergy); }
+  .tip .td b { color: var(--diet); }
+  .tip .tx { color: var(--muted); font-style: italic; }
+  .tip .none { color: var(--muted); font-size: 12.5px; margin-top: 6px; }
+
+  /* List view */
+  .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; break-inside: avoid; }
+  .card.wide { grid-column: 1 / -1; }
+  .card h3 { margin: 0 0 6px; font-size: 18px; color: var(--green); display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .card h3 span { font-size: 13px; font-weight: 400; color: var(--muted); }
+  .card ol { margin: 0; padding-left: 22px; }
+  .row { padding: 2px 0; font-size: 14px; }
+  .row .full { color: var(--muted); }
+  .row.hit b { color: var(--hit); }
+  li.row .al, li.row .pr, li.row .note { display: block; font-size: 12.5px; }
+  li.row .al { color: var(--allergy); }
+  li.row .pr { color: var(--diet); }
+  li.row .note { color: var(--muted); font-style: italic; }
+  .row .side { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+  .row.side-bride .side { background: var(--bride); }
+  .row.side-groom .side { background: var(--groom); }
+  .row.side-crew .side { background: var(--crew); }
+  .totals { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 2px 0 10px; font-size: 14px; }
+  .totals b { font-size: 18px; color: var(--green); margin-right: 4px; }
+  .diet-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .diet-table th { text-align: left; font-weight: 600; color: var(--muted); font-size: 12.5px; border-bottom: 1px solid var(--line); padding: 4px 8px 4px 0; }
+  .diet-table td { border-bottom: 1px solid #eef0eb; padding: 5px 8px 5px 0; vertical-align: top; }
+  .diet-table td.al { color: var(--allergy); }
+  .diet-table td.pr { color: var(--diet); }
+  .empty { color: var(--muted); font-style: italic; font-size: 14px; }
+  [hidden] { display: none !important; }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 24px; }
+    .controls { margin-left: 0; }
+    input[type="search"] { width: 100%; }
+    .grid { grid-template-columns: 1fr; }
+    .table-row > div { flex-basis: 100%; }
+    .diet-table { font-size: 13px; }
+  }
+  @media print {
+    header .controls, .tip { display: none !important; }
+    header { position: static; }
+    body { background: #fff; }
+    .floor { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-row">
+    <h1>Zasadací poriadok</h1>
+    <div class="stats" id="stats"></div>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--bride)"></span>Bride's side</span>
+      <span><span class="dot" style="background:var(--groom)"></span>Groom's side</span>
+      <span><span class="dot" style="background:var(--crew)"></span>Crew</span>
+      <span><span class="flag-a">✱</span> allergy</span>
+      <span><span class="flag-d">✱</span> diet / portion</span>
+    </div>
+    <div class="controls">
+      <input type="search" id="search" placeholder="Find a guest or allergy…" aria-label="Find a guest or allergy">
+      <button id="viewPlan" aria-pressed="true">Plan</button>
+      <button id="viewList" aria-pressed="false">List</button>
+      <button id="export">Export CSV</button>
+      <button id="print">Print</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div id="plan"></div>
+  <div id="list" hidden></div>
+</main>
+
+<div class="tip" id="tip" role="tooltip" hidden></div>
+
+<!-- Guest data: copied from seating.csv by build.py. Edit the CSV, then run: python build.py
+     The website copy leaves default-csv empty and carries the data encrypted instead;
+     the key travels in the link after '#', so it never reaches the server or the repo. -->
+<script type="text/plain" id="encrypted-csv">
+7u5GCYqHS2Z1JLvm3zHtoPyVPiC2LhQAAFbkWUXGhK1ogAZGU5tBcriaS6twBHhe_Qmwzeyqmo2AjxLhTZOYWe96wLt3S8sj2Ipd17gtwyIYVXvItLliOW2g2DTbj-ZRlMMGGIbMa94ZnzNT2zQ9kBhtUePkyxxyp6MJabTNnBd0E1J-SGyXDaxWr7jQlzh3IXj-0x7BZOk0mnQHdjRSvyVHkqqdJ0DEbqyixEdlxEMh5vyNc2XR-Fh7tGWBWC393dfrEJiPVgFmj1EjwUdDfL55bNMiRgCQZi88F7ZYMQ5MWzJC3-1Kmpim-x5vJdvgQbh7hC-tY4IQoApSlnyApHxQyaUaq9dUtyegsA2FKQm2uBbIvEwKMxzT0-_0TfnABxuwDEfxoUvycYsLdxFc5CL8pB_dXhHofPH2-EaXEIfD-Qyx6_YMynCSygECMmVJwsshs9RHbwrxhXsld1hi_fkg-oEukh1AbniaZt2e1rZZ6vAxp5KgmxaeoIu-3hmgNJzbQ5qSztAognxlAqMeW-vpTabTYvRfYj0C66IZfqrThDN6QkCR4dSs8IF4xGBY3_fYc7nCD1G-drASNNuYK2lZbJFP-xZbm7C507W3S3kKy24m4DxRb8USjJuAAfFJExmKHN8fmGsq5v75-Wtr4du-xmPMrrYbIdKNgaGbcZyBATZml9hEZIrsabetnRkQzz5-_Z8MhAs-3Uj88OgDfOi1KbiLgA5MLARGeWg0aB4ba7AZoxU6TI2DVTqCS1IRiwto2rXS11r5t6pPvLIZq1Xv-pw6M0m7GEyf2f9wVYEuDrW0RpHuNUvSefE831L6-3AFqNLgWrwf7pHNVA9HfhYlIeePQPKPT2x2qY6XbF7PNTlyJOvwa3jPFtNeTrYIzxyQLCaxkFQOwJ_WdrbXPBPpZsnRV3weWiMeyJbd04FoZNlPaZ03Jh3hTSumVJ9b-cgtRbb2DKfc_YhJk8oj1vyhUowr8mgjT0lDWmpmEKK0gZKUnY4oPYnEHFjpv5SBYE8ece74ihLudgoT3gURAsXEoTpSsXaY70YiTu8Ltuo0o7ub7YBhMsz6022KQoYUQwxH6UZMrEjBJqHYcZUt1ab7-bN5s4hP8T2Hc2_4JtHsbFkvkSsaUhY2Q0CiDh7a1qbhTkPQIw42N6tpoOn5-UiZ0DzcNxaOag6Mv57EzQV-Vbf5cyYTZlR4j9msznIU0lK24PVeX9xqyQgiaR2QUNWLqeyiKe-iKNlWlZgTFfDjHdWQFFNvJG_eLIKSTqpjuXRGHCZibFktG0AaVALJPFswh_XmRcUpjwJstPRVXxXKfWufFpxphXC6jg6rY6sjGrmXgCdyt6gdnqe54qCcP40a66ro1VflQGUByX7f4GNHtXM3ipxvCXGIQS8rZ78H4SSJ0tLniSMpEC5JZQ61gF2eTRMNxKYQ_jibVHfGOd60UJubF5k9W3gasQMVNYRcZU7quZU0uEszywcTPxT1dlGRaWlx5nsXHkUSlXAQjx6hU_09M1aU-hF-Lo-7RpXEhwIDI91rYrvWGJ8rvUxLFaLPif0dpheasZyebd7jrLiBCZS0R_TSRaF-YencCSj7Kg8LJLy1G7J7n97iUoFnGYOohZ6zkvMsKkQ65M4nLUZKbSD4HU34trcQzn6Ad_xQcNGkqj2NmrtfxFlQMWjs8admwQ1dbouMlZespOOVIGiPqsyZkfUNo3StNAHuim6532seBfpvykdeuEajyEuckZ86ZJO9tJ1LA8dFL6y8QLa9E3m5EW1EDNpeaIrTkqM9OAX1eJf2iVgpiqzTa8LBPaqG5cBgisRjaW6OdSJrePRr61X6M-HsGzJXRZHmH4lJwU7GTkLZ1KUWVCitEz1FtbxcCvGpZoP0gfo0FQiCKX6MlLWlMGDsHOF7Y44jNA_KT47M--ieRqGNUkZrDH2-6IPmBOxDLwouAWMM-1cwHMAvBevgCaaqybZYUogMl1dLrTsntJfB0loBqZYZwDJIzFvs0__z6OdCTmU4GdDjeKmtl_naI7DLAoYaUpq8Tv8h2E7aHn6ADGR4O8C5QD21KOL11jgczSF0CM4o1jr4vKfTB-wCCFEfV96AIJPQUfl2FAUv4MMAwYubNth63pj-r7ypZKsXHGKuHzjZboDm2BOTJ0uHQqp-h2VrdbUgW4Ryy8uj3anPPR-qoOSFOBZv0T5pVHHEha6fQmk5dDszaYYKn2aH5hGjqGfOzqzq8DSOLlfOf3exhqD6LytUNnwYEVlVYeyzrylsyFrU-gsrYs3RwJR3dWtVr04q-BpYF8hM-GoZHE91CxLkSsF8mjzUFaK2WF0OlGfG8MQGrDWw0RJBiEUgwvmnE5WkWorYPJRW3q8EK1XVbhMJfLfThjJAWxYysnZGKr_ZJzKhuTysB6sTfhVysCRKcRS_wlK5CI1riJ_-i7GGDdDCz0vvejlmK_wxS9UQhupcIbTDESkfXQl09NBTnBOPbmLOm_48Ysk9GIO890ZL4cZ9CcVEKB7q1rPzEkkjBGMEWHhX0ZzvNFZNDUYeeVxP4D_vrezgqeqa5UwxNY5oRtgQS_vj2vFHuQU-X1b0Z2uRZyC5MLmuR8SPL60Y45tmtN2XybYYCI5yV0n6COtFWkLmzCWEq3mUpR4m46n_ETUv9t24NxIxdwq3aPS7FjWyA6KMOYwbKfKkEMRJPkNUW2z1aSbLW_AUTYCLwyUGmazDlAYTIprEvYczV9_2AU1JsAQQ8qerFJvnr20y5wRlHn9IVOfSfJ8_OGf2G5zfZ4_uie_Ma9zqKSP8M-i3LL2D3F5SOHWNph1psldxHbE_XdhmQiKGy0qfUIlae73Lh4pNBXzbyJXqgesJrWPqsn6qe8irlWmeN4N5DhZzdA3YE90tV8c8L_1W4JRGwtx7KQzergz6wYrf_DJD7wvzoOa7MnVS-TwTcWsz6_sMvqubqape08cA4JRyTIHgaEIjpRBZOxtgmD5NldESiz2hxFksInzEDJ9NEl4G3HVcbAzTJSkt7QnvK8RC2PnGohGEOqYS6T-20X8R4EmcSrHNzmbDLnffTBzZratSRbIJL_T4cxd9Nj-Gr7d0oVICGmHhhz3Bh7MBJvDGp1nbtKndvwP07lz6sNPBSY5-3x1xew3jyX_nAjmiBycaRcg6cWXsmwbH4nE5TXFu-F0_zWWEDz5XAAS0Z9KHyClddrrog7SX1q8Jtu2Z9xM2V8QVXRrDH60b34l0rQJZfYF8mbxaQQZbburWYwdMjVJVQwEsmeiAhizKUQvSx68qEFvhD7nFM4Xd2Xo9yFFX-bGzJPysY7GvDlF2Ds0FGhAVPSUBnUMItOxOhgUh27H2OSdqvO3-05-WM8DY21WSS4eZQxjTVCBqx7V0N7cD7eVlmAvpV2rGQpRORpvjPyvVXlZ0jUvZ3cGEn1Z8H5AczOr_T_W3uJm_7cB1DrWmYsw1hwPeArNDAdiLN8xnBlGdUlTOwFHpOEf7oc3YcVXXocoF_qqtVr49bHoUwVKnlT_22lxeNSO4OyPUl8TwZ8axzQaqt6778Xn4632VbnGORbiNX5VceB52jHdwO6t5_BpX8YY6kNPrV_uSEaiJUaM0BYlofGx9OZzMwfpXiW1MwmpH386q-uc5uk3i6UleHtkhw0KvBt5jsVvUryI5watMfKBcSX_-C5VYj2YJhkcIOluF5tSTBrZjMX9kXxX9l7VTDIMV4YiZfup4SsgupNfwTvGCirfncE27uIJ-PTRbho2c1zh0B33I1_kcs351Rf4ZMNro_1YHHdq649eCFpDZnzfay7V3ZeRjGn82KOfB5CCChyrQoXd-xhRlaKfrRSK6otqfUJWs7QY62AbvnhHcc0Ho4sCfubqBMhGCwkFqLweq7eAEt-5JMgh-Tm7NUmdLIIPMpoG9q5tpu3K6-VtaHf18mzfE8pHNkMQefxAP9Qk5kIKYPlKY_DjDzXIF53XxRefwF0MG7J--UX7taICx_DOSuO-vaiXtKyM7qa34P20UuFnXqh29vHqMITcb14OVU0CxiwRYVKIApZPQTjlRst2Xivg8cx8fRezszU1uI5pwfN3eGKzNmiJnNhS3nA-GAP-larG7_enfXWB2gRG6s8eV4kljR7NaUjRI7CuQTc31MWCdX_jw5yvRWCWedh56NAvzBQoXZTt1o9GPSj4_sH4BCS6v4wzIWdKqATtAXXEFhPyoX7IGrZ6AkmeF-xx5x5iWiaL8JMsTx0z2gqSdetLVdHOKzT2_A-y6wHpvRB0jLZs_IhIuV20zQxsHNlGLWxuPAu8LW4hdzC3bt_RpLVrNHFP9MpCVlNT8lWYsDUxq3JZ2yxfwKnZvmwjlDBsHNQrrIOmLh_7gduuCp1BOLGcGmQjTQua1A0qRmXOTfUnqaaEqiWGuEtSC7xso-bJhuycWuI_Q_n1kZHoiHVmtoVN_53m3jh2hPgMAlHYGV1plHiyhxjbOlUK-V6c_ytM10BufHbsIh8GUAOsEZCmkFtkAy3JE5ujFaVK6DnhrWz8uW_7_8b3Kca2XUahC6WMxNs99Grij19Jvp6lkXBSuQiyXAmXdJ1vLbfGOEn8VPeCvcsDg-9S0aqgWTV0l0Qjo9tO3Jx4kqlNVNZgxWU3y4yjmZIlPkxWlvLkIv5SDc9GPRK6sdDpG2igtpowsvUalVTlXJpsD5K1qDOuuPtkUf6v2HPlPeq75_njpxY7YV9gFAV9Fk-4D8_0EAj93Jjgj1ALw9Eig1VgnrzhY6-XIuA2hlivOpfcSg_721D-Ha-2y42mcWKIeRYTOiyP06gk--mdx5ZQz7JZa-D49fACxALcZFmA0h38waEq-oLgvZTDvebLiN1095EuR1ANpZstAO-EG9m1vJgLVmTKTQq0n5kfTXII1szOkhh33JWY2fxDknPz1fwDByLM7AJ6o9JlN8ulE9HFea0ySUn5RfiWhYcte7MKaZCC8aYxtxjZm3I9e1DNwdKG-x4H2oq44Pmz7dwMCTrgI5wSFal-c8hWqhO74xIXSXSVp6IPlc3ywr_YRYaCcYY09AMI5yMe2sFgB79RRYA61w9nh97s-bWCNZq_0mJHoS-N-ssw9wpV3v_qPM77TcwcjkJiTcBRErEWYup3XpvBjufEk3uuhs2lYP_soWHQAR4_njGwlWvFRv1WGJ3PFMf1lKEiU6Vlw-l7OCDukCe8o7YQ3yzfsIF61KfPqb5cZ5nF9rSVAgR99uKMu9Uj0EAT6QCVuH2KPjXfKCvgEIYwCQ4thj9R8mPmNQIIqWxTDjgx_jNFMIaRlj2-wAJCVmJZQ7gMzOxVuC_brSCQ5uXTMx15ZXpXGJ_80KpwoXG_6BpOsCogq-_Bb8xa5Tl7A_PJV3b4__m_exYlH2JbrAGKR8Kki6uzKZN2XTpp0xYZAAAaDBPL68Y6hryKVMUsI5CvJQzx19SnuV9THJbruFYf30GYUcmhYdpjG0uZfOkCrb4W4h20UizxjulXk2B4aRqj6P5YPGrHI8wOD7gIRye6FUiEDN7JEt6chBgdwvOwKKRtK73W9g5S5_9dn9KCmusaAwCo1CH8rfP0hGYfl382-L9ezjFAJwv_eXFDY9hcXLHtkomuD1syK575ktkiE6dWw3aFNFKCrE-N6tcdO21OHjllmdlKAP2ARLqYxF6bLYlxUZOUiiIeieJXXSyskHU5CxB1fve_WNMT7Dq2-CcwvNpDbtO1QomaoaYZQMJmDxZXm91Qx0Ja39SpkXi-mOTh2X_6Y-PrcqqYUOHMnbaNf5tLKsyVd1UupHfkNeAMNc-Nwm74Aq7oqu81Fsn-9z4vPZQ2U6Dc74TCERb9TDHKexA47TmQaIHq_zLNqgcbHTXSjlJ20tlWD4OQdAA35xjmQUFLrLmgMK1g4JN9Lu-f5FRad_hV50ngwn2L_71MbfJca1DcJQGHqJTIUWYipVn5FXcZxg7cBdrbhBpTq7TY_EkDdSUXlfsn2vimaLfHGtf0CCcl4NPLds15ktz7i0zXr-R4JieILz19P1e2hGpBE01CcJ5ppDATF8XdfHJSmlvj8r59liT5TJNi8SfFh1ae1SkZ1f8iHA8-HD21gmF5aEyElcfrTpA9wKR-8ffCbbvxhXvfQkQ2ctG6Iv-UqB3xAaSxtt8Dh_9S1P2DbPsejKTYGdJ3h13ZylpSkgJrcc4h27GOsUp34xAcoemd5MnCGJePRZuXuawrn_HTlPTsXhqrr-rwGh_S0OQtBuR74VNIyUewNaVc_ZlZBdi7D58XFPI7E0_mfnBkyXMVE2dhyoafuMAqtwSKihKwCCl4sULsFb_DQUr4cA9mkwvVx3X1wpEhOlV4FdGPV1L-p7yL6eouRiensbuLFsgDIEDRcA37zUO08Zmls-Gmdagp7VpmHuybPiKjWOP0WUB2s_bJ9SWOujRQlIjrf1LNyJI4kiQschGAFugEayADhSlT-8J3la_JCvalEOgheg-tRA1Aa3NsFlNdPLublluPI78Ms9Lk1LuetFv5TBl351vPiS6E3ha0SCeJVTL8ygaPE9qqJo-YesQxCi9TZdZ8mJfcifxw9KgDa6-bA4fGJ3r6ImV0sDLW6Fp5Cd-AA5w-pSzvhoi6NBsG_hNF_27U08gq7MpPbSoDhRld5YNzFVCTOE11pFqcShNpGY8h19vYL2ihLrORtCB1qgasRVQPIdIj7eFMoRdbffkSYA74PHMAN3XT24eXCdkEWjA_ka1H9rgQ3rtcGqlXQT9engDqUwZguvfO379Z-t7a50r9qb74Jd_qb57fZbRHwKhIumdk13TLh1mkqTrsGFQHaMUX5mRIa0JNMdCYe3LVyKkhtbkxqmUAf4yral5jIMi4DZt4rgHppzkgWk_MBoFDvZmfQE66d1ZhZFbyFi1nxzKXHMSl9P9zrF4Jw40jjtU-roPLrp3LGrKDzqb3dPOHSSAZ4zeGWzc6qI8Q1xUqfviy1R4f57WrO6d2aFuGKdkIeqUDHxJDblO9r-Czpnplm8ZHAFQ4kBsr5FdsLXbMLRYOe7p4cLDFSYG_WCUsgdQ2OnHskpb_w9lktZGf2lSFXq6tNuzVEb17Hk7atI_tmkui33-7EX91JEjB0lfXiFBI4PpABZnV-Rv-rrvqwWlt56B4lTlaAFAwb7ifAH-Ck9p_rHv6IUO2PmGzLMQpPjWARp9WnvrLoA_qu8tipfPvMz1qexDFNoXPMKYToI54Y-NKk5-GC67XoI10SIVEZGUiXCXq4GsCwa6oIWZNZbcd-V9RyC6cV7eukpK78p8JWPAMPIADEqs631GtFNd7chXh7kpWCFNiZuWpmTRl7BQCG4hofhVNJerNTzhRbFkMfWc_5PWV3kE01VWycoH0Y2mcGyfclCXM3j5zmEDDI8c00zMt5ts6TAdw6J54A8fuiAL5P05-GpXWIKjpaeoZYJFyg-D-GWxVKZrFEuH2UKSWBkPFqnbOc3OzeH-h6zoC9ADsEGExveIXjzZ_s
+</script>
+<script type="text/plain" id="default-csv"></script>
+
+<script>
+const BASE_TABLES = ['Main', 'Square', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+const DOWNSTAIRS = ['Main', 'Square', '1', '2', '3', '4', '5', '6', '7'];
+// Room layout: rows of tables, front (nearest the main table) first.
+// Tables not listed here fall back to a plain grid.
+const FLOOR_ROWS = {
+  Downstairs: [['1', '2'], ['3', '4', '5'], ['Square', '6', '7']],
+};
+const locationOf = t => tableLoc[t] || (DOWNSTAIRS.includes(t) ? 'Downstairs' : 'Balcony');
+const tableTitle = t => t === 'Main' ? 'Hlavný stôl' : t === 'Square' ? 'Square table' : `Table ${t}`;
+
+let guests = [];     // {id, table, seat, nametag, full, side, allergies, prefs, note}
+let tableLoc = {};   // table id -> 'Downstairs' | 'Balcony'
+let view = 'plan';
+let query = '';
+
+// ---------- CSV ----------
+function parseCSV(text) {
+  text = text.replace(/^﻿/, '').trim();
+  const firstLine = text.split(/\r?\n/)[0];
+  const delim = firstLine.split(';').length >= firstLine.split(',').length ? ';' : ',';
+  const rows = [];
+  let row = [], field = '', quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (quoted) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; } else quoted = false;
+      } else field += c;
+    } else if (c === '"') quoted = true;
+    else if (c === delim) { row.push(field); field = ''; }
+    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+    else if (c !== '\r') field += c;
+  }
+  row.push(field); rows.push(row);
+
+  const header = rows.shift().map(h => h.trim().toLowerCase());
+  const get = (r, name) => { const i = header.indexOf(name); return i >= 0 ? (r[i] || '').trim() : ''; };
+  const side = s => /groom|ženích|zenich/i.test(s) ? 'Groom' : /crew|vendor|dodáv/i.test(s) ? 'Crew' : 'Bride';
+
+  const locs = {};
+  const list = rows
+    .filter(r => r.some(x => x.trim()))
+    .map((r, i) => {
+      const table = get(r, 'table');
+      if (table && get(r, 'location')) locs[table] = get(r, 'location');
+      return {
+        id: i + 1,
+        table,
+        seat: parseFloat(get(r, 'seat')) || 999,
+        nametag: get(r, 'nametag') || get(r, 'full name'),
+        full: get(r, 'full name') || get(r, 'nametag'),
+        side: side(get(r, 'side')),
+        allergies: get(r, 'allergies'),
+        prefs: get(r, 'preferences'),
+        note: get(r, 'note'),
+      };
+    });
+  return { guests: list, tableLoc: locs };
+}
+
+function toCSV() {
+  const esc = v => /[;"\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+  const lines = [['Table', 'Location', 'Seat', 'Nametag', 'Full name', 'Side', 'Allergies', 'Preferences', 'Note']];
+  for (const t of tableIds()) {
+    for (const g of seatedAt(t)) {
+      lines.push([t, locationOf(t), String(g.seat), g.nametag, g.full, g.side, g.allergies, g.prefs, g.note]);
+    }
+  }
+  for (const g of seatedAt('')) lines.push(['', '', '', g.nametag, g.full, g.side, g.allergies, g.prefs, g.note]);
+  return '﻿' + lines.map(l => l.map(esc).join(';')).join('\r\n') + '\r\n';
+}
+
+// ---------- Data helpers ----------
+function tableIds() {
+  const extra = [...new Set(guests.map(g => g.table))]
+    .filter(t => t && !BASE_TABLES.includes(t))
+    .sort((a, b) => (parseFloat(a) || 0) - (parseFloat(b) || 0) || a.localeCompare(b));
+  return [...BASE_TABLES, ...extra];
+}
+function seatedAt(t) { return guests.filter(g => g.table === t).sort((a, b) => a.seat - b.seat); }
+const byId = id => guests.find(g => g.id === id);
+
+// ---------- Rendering ----------
+const escHTML = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const isHit = g => query && [g.nametag, g.full, g.allergies, g.prefs].some(s => norm(s).includes(query));
+const seatClasses = g => `side-${g.side.toLowerCase()}${isHit(g) ? ' hit' : ''}`;
+const flagSVG = g => g.allergies ? '<tspan class="flag-a" dx="3">✱</tspan>' : g.prefs ? '<tspan class="flag-d" dx="3">✱</tspan>' : '';
+const seatAttrs = g => `class="seat ${seatClasses(g)}" data-gid="${g.id}" tabindex="0" aria-label="${escHTML(g.nametag + ', ' + g.full)}"`;
+
+function roundTable(t) {
+  const list = seatedAt(t);
+  const n = list.length;
+  let s = `<svg viewBox="-190 -118 380 236" role="img" aria-label="${tableTitle(t)}, ${n} guests">`;
+  s += `<circle r="54" class="tbl-top"/>
+        <text class="tnum" y="2">${t}</text>
+        <text class="tcount" y="28">${n} ${n === 1 ? 'guest' : 'guests'}</text>`;
+  list.forEach((g, i) => {
+    const a = (-90 + i * 360 / n) * Math.PI / 180;
+    s += seatSVG(g, Math.cos(a), Math.sin(a), 68);
+  });
+  return s + '</svg>';
+}
+
+function squareTable(t) {
+  const list = seatedAt(t);
+  const n = list.length;
+  // Up to 4 people: one per side (top, right, left, bottom). More: spread evenly around.
+  const angles = n <= 4 ? [-90, 0, 180, 90].slice(0, n) : list.map((_, i) => -90 + i * 360 / n);
+  let s = `<svg viewBox="-190 -118 380 236" role="img" aria-label="${tableTitle(t)}, ${n} guests">`;
+  s += `<rect x="-50" y="-50" width="100" height="100" rx="4" class="tbl-top"/>
+        <text class="tname" y="-2">Square</text>
+        <text class="tcount" y="20">${n} ${n === 1 ? 'guest' : 'guests'}</text>`;
+  list.forEach((g, i) => {
+    const a = angles[i] * Math.PI / 180;
+    const cos = Math.cos(a), sin = Math.sin(a);
+    s += seatSVG(g, cos, sin, 64 / Math.max(Math.abs(cos), Math.abs(sin)));
+  });
+  return s + '</svg>';
+}
+
+function seatSVG(g, cos, sin, dist) {
+  const centred = Math.abs(cos) < 0.3;
+  const anchor = centred ? 'middle' : (cos > 0 ? 'start' : 'end');
+  const r = dist + (centred ? 26 : 16);
+  return `<g ${seatAttrs(g)}>
+            <circle class="chair" cx="${(cos * dist).toFixed(1)}" cy="${(sin * dist).toFixed(1)}" r="9"/>
+            <text x="${(cos * r).toFixed(1)}" y="${(sin * r).toFixed(1)}" text-anchor="${anchor}">${escHTML(g.nametag)}${flagSVG(g)}</text></g>`;
+}
+
+function mainTable() {
+  const list = seatedAt('Main');
+  const n = Math.max(list.length, 1);
+  const W = 600, step = W / n;
+  let s = `<svg viewBox="-320 -44 640 116" role="img" aria-label="Main table, ${list.length} guests">`;
+  s += `<rect x="-300" y="-34" width="600" height="42" rx="6" class="tbl-top"/>
+        <text class="tlabel" y="-7">Hlavný stôl</text>`;
+  list.forEach((g, i) => {
+    const x = -W / 2 + (i + 0.5) * step;
+    s += `<g ${seatAttrs(g)}>
+            <circle class="chair" cx="${x.toFixed(1)}" cy="24" r="9"/>
+            <text x="${x.toFixed(1)}" y="50" text-anchor="middle">${escHTML(g.nametag)}${flagSVG(g)}</text></g>`;
+  });
+  return s + '</svg>';
+}
+
+function tableSVG(t) { return t === 'Square' ? squareTable(t) : roundTable(t); }
+
+function planHTML() {
+  const ids = tableIds();
+  let html = '';
+  const loose = seatedAt('');
+  if (loose.length) {
+    html += `<section class="floor"><h2>Unassigned <small>${loose.length} without a seat</small></h2>
+               <p>${loose.map(g => escHTML(g.nametag)).join(', ')}</p></section>`;
+  }
+  for (const floor of ['Downstairs', 'Balcony']) {
+    const here = ids.filter(t => t !== 'Main' && locationOf(t) === floor);
+    const rows = (FLOOR_ROWS[floor] || []).map(r => r.filter(t => here.includes(t)));
+    const leftover = here.filter(t => !rows.flat().includes(t));
+    const count = ids.filter(t => locationOf(t) === floor).reduce((sum, t) => sum + seatedAt(t).length, 0);
+    html += `<section class="floor"><h2>${floor === 'Downstairs' ? 'Prízemie' : 'Balkón'}
+               <small>${floor} · ${count} people</small></h2>`;
+    if (locationOf('Main') === floor) html += `<div class="main-table">${mainTable()}</div>`;
+    for (const r of rows) {
+      if (r.length) html += `<div class="table-row">${r.map(t => `<div>${tableSVG(t)}</div>`).join('')}</div>`;
+    }
+    if (leftover.length) html += `<div class="grid">${leftover.map(t => `<div>${tableSVG(t)}</div>`).join('')}</div>`;
+    html += '</section>';
+  }
+  return html;
+}
+
+function dietSummaryHTML() {
+  const count = re => guests.filter(g => re.test(norm(g.prefs))).length;
+  const special = tableIds().flatMap(t => seatedAt(t)).concat(seatedAt(''))
+    .filter(g => g.allergies || g.prefs);
+  const totals = [
+    ['with allergies', guests.filter(g => g.allergies).length],
+    ['vegetarian', count(/vegetari/)],
+    ['vegan', count(/vegan/)],
+    ['child portions', count(/detsk/)],
+    ['no meal (baby)', count(/bab/)],
+  ];
+  return `<div class="card wide"><h3>Alergie a stravovanie<span>for the caterer</span></h3>
+    <div class="totals">${totals.map(([label, n]) => `<span><b>${n}</b>${label}</span>`).join('')}</div>
+    <table class="diet-table">
+      <thead><tr><th>Table</th><th>Guest</th><th>Allergies</th><th>Preferences</th></tr></thead>
+      <tbody>${special.map(g => `<tr class="row ${seatClasses(g)}">
+        <td>${g.table ? escHTML(g.table === 'Main' ? 'Main' : g.table) : '—'}</td>
+        <td><b>${escHTML(g.nametag)}</b><br><span class="full">${escHTML(g.full)}</span></td>
+        <td class="al">${escHTML(g.allergies)}</td>
+        <td class="pr">${escHTML(g.prefs)}</td></tr>`).join('')}</tbody>
+    </table></div>`;
+}
+
+function listHTML() {
+  const card = (title, meta, list) => `<div class="card"><h3>${title}<span>${meta}</span></h3><ol>${
+    list.map(g => `<li class="row ${seatClasses(g)}"><span class="side"></span><b>${escHTML(g.nametag)}</b>
+      ${g.full !== g.nametag ? `<span class="full">— ${escHTML(g.full)}</span>` : ''}
+      ${g.allergies ? `<span class="al">Alergie: ${escHTML(g.allergies)}</span>` : ''}
+      ${g.prefs ? `<span class="pr">${escHTML(g.prefs)}</span>` : ''}
+      ${g.note ? `<span class="note">${escHTML(g.note)}</span>` : ''}</li>`).join('')
+  }</ol></div>`;
+  let html = '<div class="list">' + dietSummaryHTML();
+  for (const t of tableIds()) {
+    const list = seatedAt(t);
+    if (list.length) html += card(tableTitle(t), `${locationOf(t)} · ${list.length}`, list);
+  }
+  const loose = seatedAt('');
+  if (loose.length) html += card('Unassigned', String(loose.length), loose);
+  return html + '</div>';
+}
+
+function render() {
+  hideTip();
+  document.querySelector('main').classList.toggle('searching', !!query);
+  document.getElementById('plan').hidden = view !== 'plan';
+  document.getElementById('list').hidden = view !== 'list';
+  if (view === 'plan') document.getElementById('plan').innerHTML = planHTML();
+  else document.getElementById('list').innerHTML = listHTML();
+
+  const people = guests.filter(g => g.side !== 'Crew');
+  const bride = people.filter(g => g.side === 'Bride').length;
+  const crew = guests.length - people.length;
+  document.getElementById('stats').innerHTML =
+    `<b>${people.length}</b> guests (${bride} bride / ${people.length - bride} groom)` +
+    (crew ? ` + <b>${crew}</b> crew` : '') +
+    ` · <b>${guests.filter(g => g.allergies).length}</b> with allergies`;
+}
+
+// ---------- Hover card ----------
+const tip = document.getElementById('tip');
+let tipFor = null;
+
+function showTip(el) {
+  const g = byId(+el.dataset.gid);
+  if (!g) return;
+  const where = g.table ? `${tableTitle(g.table)} · ${locationOf(g.table) === 'Balcony' ? 'Balkón' : 'Prízemie'}` : 'No seat yet';
+  const side = { Bride: "Bride's side", Groom: "Groom's side", Crew: 'Crew' }[g.side];
+  tip.innerHTML =
+    `<div class="tn">${escHTML(g.nametag)}</div>` +
+    (g.full !== g.nametag ? `<div class="tf">${escHTML(g.full)}</div>` : '') +
+    `<div class="tm">${side} · ${escHTML(where)}</div>` +
+    (g.allergies ? `<div class="ta"><b>Alergie:</b> ${escHTML(g.allergies)}</div>` : '') +
+    (g.prefs ? `<div class="td"><b>Preferencie:</b> ${escHTML(g.prefs)}</div>` : '') +
+    (g.note ? `<div class="tx">${escHTML(g.note)}</div>` : '') +
+    (!g.allergies && !g.prefs ? '<div class="none">No allergies or preferences</div>' : '');
+  tip.hidden = false;
+  document.querySelectorAll('.seat.active').forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+  tipFor = el;
+
+  const r = el.getBoundingClientRect();
+  const tw = tip.offsetWidth, th = tip.offsetHeight, pad = 10;
+  let left = Math.min(Math.max(pad, r.left + r.width / 2 - tw / 2), window.innerWidth - tw - pad);
+  let top = r.bottom + 8;
+  if (top + th > window.innerHeight - pad) top = r.top - th - 8;
+  tip.style.left = left + 'px';
+  tip.style.top = Math.max(pad, top) + 'px';
+}
+function hideTip() {
+  tip.hidden = true;
+  if (tipFor) tipFor.classList.remove('active');
+  tipFor = null;
+}
+
+document.addEventListener('pointerover', e => {
+  if (e.pointerType === 'touch') return;
+  const seat = e.target.closest('.seat');
+  if (seat) showTip(seat);
+});
+document.addEventListener('pointerout', e => {
+  if (e.pointerType === 'touch') return;
+  const seat = e.target.closest('.seat');
+  if (seat && !seat.contains(e.relatedTarget)) hideTip();
+});
+document.addEventListener('click', e => {       // tap on phones
+  const seat = e.target.closest('.seat');
+  if (seat) showTip(seat);
+  else hideTip();
+});
+document.addEventListener('focusin', e => { if (e.target.closest?.('.seat')) showTip(e.target.closest('.seat')); });
+document.addEventListener('focusout', e => { if (e.target.closest?.('.seat')) hideTip(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') hideTip(); });
+window.addEventListener('scroll', hideTip, { passive: true });
+
+// ---------- Controls ----------
+document.getElementById('search').addEventListener('input', e => { query = norm(e.target.value.trim()); render(); });
+for (const v of ['plan', 'list']) {
+  document.getElementById('view' + v[0].toUpperCase() + v.slice(1)).addEventListener('click', () => {
+    view = v;
+    document.getElementById('viewPlan').setAttribute('aria-pressed', v === 'plan');
+    document.getElementById('viewList').setAttribute('aria-pressed', v === 'list');
+    render();
+  });
+}
+document.getElementById('export').addEventListener('click', () => {
+  const blob = new Blob([toCSV()], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'seating.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById('print').addEventListener('click', () => window.print());
+
+// ---------- Start ----------
+async function loadCSV() {
+  const plain = document.getElementById('default-csv').textContent.trim();
+  if (plain) return plain;
+  const blob = document.getElementById('encrypted-csv').textContent.trim();
+  const key = location.hash.slice(1);
+  if (!blob || !key) throw new Error('locked');
+  const bytes = s => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
+  const data = bytes(blob);
+  const k = await crypto.subtle.importKey('raw', bytes(key), 'AES-GCM', false, ['decrypt']);
+  const text = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: data.slice(0, 12) }, k, data.slice(12));
+  return new TextDecoder().decode(text);
+}
+
+loadCSV().then(text => {
+  const data = parseCSV(text);
+  guests = data.guests;
+  tableLoc = data.tableLoc;
+  render();
+}).catch(() => {
+  document.querySelector('header .controls').hidden = true;
+  document.querySelector('.legend').hidden = true;
+  document.querySelector('main').innerHTML =
+    '<section class="floor"><h2>Súkromná stránka</h2><p>Táto stránka sa otvorí len cez celý odkaz, ktorý ste dostali.<br>' +
+    '<span class="empty">This page only opens with the full link you were sent.</span></p></section>';
+});
+window.addEventListener('hashchange', () => location.reload());
+</script>
+</body>
+</html>
