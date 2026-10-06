@@ -22,6 +22,7 @@
     --allergy: #c2410c;
     --diet: #4d7c0f;
     --hit: #b45309;
+    --noalc: #0f766e;
   }
   * { box-sizing: border-box; }
   body {
@@ -83,6 +84,8 @@
   .seat text { font-size: 15.5px; fill: var(--ink); dominant-baseline: central; }
   .seat .flag-a { fill: var(--allergy); font-size: 13px; }
   .seat .flag-d { fill: var(--diet); font-size: 13px; }
+  .noalc-ic, .ic { color: var(--noalc); }
+  .ic { display: inline-block; width: 15px; height: 15px; vertical-align: -3px; }
   .chair { stroke-width: 2; }
   .side-bride .chair { fill: #f3e3e5; stroke: var(--bride); }
   .side-groom .chair { fill: #e2e9f0; stroke: var(--groom); }
@@ -102,7 +105,7 @@
   .tip .tn { font-size: 17px; font-weight: 700; color: var(--green); }
   .tip .tf { color: var(--ink); }
   .tip .tm { color: var(--muted); font-size: 12.5px; margin-bottom: 4px; }
-  .tip .ta, .tip .td, .tip .tx { margin-top: 6px; }
+  .tip .ta, .tip .td, .tip .tk, .tip .tx { margin-top: 6px; }
   .tip .ta b { color: var(--allergy); }
   .tip .td b { color: var(--diet); }
   .tip .tx { color: var(--muted); font-style: italic; }
@@ -122,6 +125,7 @@
   li.row .al { color: var(--allergy); }
   li.row .pr { color: var(--diet); }
   li.row .note { color: var(--muted); font-style: italic; }
+  li.row .dr { display: block; font-size: 12.5px; color: var(--muted); }
   .row .side { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
   .row.side-bride .side { background: var(--bride); }
   .row.side-groom .side { background: var(--groom); }
@@ -153,6 +157,13 @@
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="noalc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 3h10l-.6 5.5a4.4 4.4 0 0 1-8.8 0z"/>
+    <path d="M12 13v7M8.5 21h7"/>
+    <path d="M3.5 3.5l17 17"/>
+  </symbol>
+</svg>
 <header>
   <div class="head-row">
     <h1>Zasadací poriadok</h1>
@@ -163,6 +174,7 @@
       <span><span class="dot" style="background:var(--crew)"></span>Crew</span>
       <span><span class="flag-a">✱</span> allergy</span>
       <span><span class="flag-d">✱</span> diet / portion</span>
+      <span><svg class="ic" aria-hidden="true"><use href="#noalc"/></svg> non-alcoholic</span>
     </div>
     <div class="controls">
       <input type="search" id="search" placeholder="Find a guest or allergy…" aria-label="Find a guest or allergy">
@@ -185,7 +197,7 @@
      The website copy leaves default-csv empty and carries the data encrypted instead;
      the key travels in the link after '#', so it never reaches the server or the repo. -->
 <script type="text/plain" id="encrypted-csv">
-QbBtSJclaFt9UWeQYDL09ejaDzJdPq_mKNRlUDzCDeCR6DuKL9mHxR1r6mqRocUBAmG1vg869bTYf4qViCNc7R2sV1LHONys7uxJAUq0jCnbo0c3Iiy3dYZW0CuqqvzxCzOXvbkAFZr_TB78JY6vVaXfTcEsC2KF48AZbI95t444ZezhSMUFVwT0tLsRKuYoR4gR1leaB0UPqUY1C-nz00MSL_qJDO7HLdiGaIwB0wNVwEetn_WYAsQL-09BjcvszriI13vECmfWXgIREciADi4Fz_2pwB2HYKAvPnnhtjM647Q6nDbG5EEOuAjo1w6nbW5RUl3ZIuUmE9PJiHB-Dyrnpsd2RPe4zAcgzPr-MTsrumsgUgmUy3oqFtFfPVG4txf8RfjYeRF39winNu3C4nXOID1l4UDmzA7ERYfUxwJOShGZv8gs1s29PcdPdEolo6ZUgWvW00Kbap-WFiSbiFfUU8ieZH9iXddbk55w2DoBd6rxF-Vn9nLFRVFIuvhawrleUHJO-HjuR9BOZw5QoydvIm1r129fqJPNOFQHeZMB0yyGVb9qBjvZgKWqZy6VcexkJxrIAcPXzLovYG07y4BPaOY4O1iJg21OEtSFNhyG7asLntzjjpHlE7SYHVD4heL1A-UahhERvDZ6gygTSp5nYvrC8tNVOnCm5kr4Y0_ObekJHojp-BexfnIppDzKGF5OsFV-KXS5ZoFdrOzTjkDmX7G_GZAp87SpNSdehRv0ybHM7Xe7sMqQ5ETH30ghfKRgb_HU8tySWib6OwVA2PlJMs-cb_EozC8N36D_3J3WZUNzS6xrdowF5MbiYNVbvyYhWoKxtFznxphjbnaBaik5QZ54mbcWJPaMMi9kHSx49wKYRqkCAsYVkNOgcOh2_Pnt7ZbTKs81DOaJSdyoOj0IFWA7HkRscNiUdwn5xHcmChT3bUwZgRQ0XxTHbqe9UbuefFBHUbu9NQKgeRw56eW2ZQhv-jlvmPcLDX_o7WbheExNIlYFklHRee76yRO3wSNoDY9X_nGZT3N9kDcTmygkoVHtXFto-BXOyXRGBcGkFFn5F4XO8ZLg5D-kevK-Cz09dqgbNT82fflQbv1-P36JV5vqJt3KpSrzbYuHpmw47khz2vqtrqFH_dA5B6hdfdj_IIolnk7Dr3tSQStkuPCY_zYGRDO3pjbJyuvNWcxLgkPIqp9PoXqU6LS3iusar52s66Uf0UZqn4vVW9nVLOSyJjssAEx0GoB4ZvtNrDbrgt36V7iV_3iWMKJy0xxnFi0hFr5pD2CxjC-d_GHMsHkDqvBh1vocuzzD7vOcFVyNtCuz3tXYkGmH0U0bgs2masI_GAQGooSyMY3qTV9iPD5qtgDZoUH2J-lD4UE8IHa5VwB7mXJzPPqFkBBwWuSyH04MqVuNIgDcsbw5J509sSzMPEQh-zJ88jrNoNDlBPq2uKS5SmsQFu6pSfK_XKf5rufjDAhAfs4WvmPnt8Sdi6xtjNjjQfb_WZ7veWeEThoUGif4f5bL8ipMNZzQwFg_I7un3SKUB3Tsp14N90LPiWiOYOvgn7C2_jZf2vYsL5ex4kAz3Ko0dTtC7tPPJ3n0NzH1gXDdNXKIHPKROermeD93UMIvZrN3g6WDHYwE01xQh4Pvxl5HB20VLEqvfCn3jrFG2Y0k7D-MRAaCIa0k6cYlgvDhlNJvnKqTmPGXCc7lwFu12LBWo8wAd5QqNDp4eZ_evUDcDg26053_iqi8OPkwrh31DLpoeQER3QHp565efPv5kj12cCItwVcBfsX4IJs_ongsKu4ttNVsHyjXYMXJDsA2mPT5jC8xqhgX2CttGa5BgUXjLGBSsrCL3SPzA_1r2z3Y0K1T3PELt2M0NfuhDISEUILr8pbjxzws0z6d632G68t8ghabTcg76SbrcrIA1MF5y4evqQsmB3mViLC0hRpTcrF6CCuSlOuen5tGVlOU5YkyS7vEFeFDD7lsoJ88LQYcZ7epCLZy7-a6_TIPHVxfFBjZq25yxNGAsj9KGmRbgu4uvkXLHgswr7_SUhspukvjVtntxL-FHPEovud-pAsHHTFowlyAfs_kvy266W9qSV4QW7sZ1sxkZXYppN-FK6_TzzoQthZ_-quxnPNOGvlsbGNV_mHkDAnN6dJsnWpPfM8WoBuwEfJCE9NMTirp9hi_Or1dbwaHN_VDGztxGXo2iQ2xW-mMwz6Wooy2ZwngEd0zFvPmNoca_zhWqqNDmLGNzKVd1dHcZE3-PJaEiRVyq2zKiaG-lbDZZJviAVEytFZ2JSs9JleOmFWkjZbcD4B9Z_6J6h8TugdQ0yF_-yMhfpTUxvrmITgCpO0L0JloPFr4hl73sO5Bf6Epzan1V5ahCDdY_wCRoB4bDVffsSg3JF_D9sq9K8GYvIWBd_8KXrXjMtThatUDIuthvBh6baJfPuYsf_jUdpxnCBBwqC1tFpsnMHMhteVehxA0wle55ZQE8t0i3w4INWZUwDVfGjC45I4U9jvcqZPSmcCXbiJyYH1vMxqz_l3Cc6mFQA_vTr7mZpl1Hti2QHCIZerdQwe8gTNFc55IupWWjK0-LVdXPKB8L7b_I0XnSkGLNUEX6kg0rO9LLaTrVWSwlyuxV57e1yUOzTvfyg9wsiuVedzZuGH6OpWYBYl7cNFCRDCLWTvr8MASncQb2eyPwR_NYbuwuYS0GLe7n57rfMolouGJAPCFA7b-PMi8hxQDnMO4Jsan3i98-0GDkfSOCPFHW26YDaHrFg7lN2df21wvZnE3USiazbaUkSmgpWJoMBijvEqSpQz2p0XVqr_uB8n2Tfc-VG2PILe5LCByZopm-4Ahi-QiyMaG-16v15ycl0uAb7742YtpqTSSrdLtRIvTu8Nrru1GkcM5pOACqKt-w12nLEZNOhl1jMNDQsGvxcDIZ473VXNyntlegFQ7sQTj-FdlIfntTWTb1sswGgyKSZjMTIO9-4Iku0p0J_xxhhQOWYjDdLzITMqLLWP0w7j-ML8rosdiYT2WlSpGRWFcTOz5XtKvcoSX9b6DkMreDowo5oduHmqRdeRTVWYT7yGLHoeiyCGp81Dc77Zjs9C9pWprjcsH0235TueHCfnlOGyDVuzp0mBtjo7KrsXctLQoH4Ev461P9URAxdglgol4LOOfqbRETR_GOHJ6ToVpAisQKIm9aP2vhJQTYixGe0drfjBps_BOZRmiEPPg0kz5jw0pKjM_Wb3fE0FMj7wHvJuw9sNyeUwByj50kJzMsTgrSL0ov15hvwd0BnERrOSwO8c7lmG2dWEqAPHD9nAQuw84XJ9C6kz8bO7gyH8u2zPi25GyIVCKbn1PLbNZhYhWemURUakmsTGpT5jdWo0dD2SgvJQKHoFH-62C6N2SNws0af-Q8xr5ino-Ueiw8RN8kSRfquiKZgKNOJAun8fN5oLcFr2qouB0KkciBxxi_uXKG9l7M4e4pz2pQgHP9z_WaBrGhoaXQJi7yp0i8W-TExS45Zorhz8JBxZlqrFlbLxz2xzDH435j2iY8xwf-MAYoIoujE1QlVeLyQ5tZN1txGThvazhJKGMa7xYrewjAPkgPFuFPyf4DaS4aDo1FIxOsrZ1amF5C9L0E_QXIIzGpDzXbBv4P-GshOqsAlB35WNXS8w8zx7WxpVR2mifHnVnvmSIKNhGM_AnFSZXpfRtjvLDVeAaw-cF9q3x6nNuGbwyWyDENKqCdtIvdp6vviQixFzP2piqX20dCX-0OpEfvdam3cdvWFr3PMXfJ6DCW2NDQ3g8nkFjvMeSFj9kaUcJyv4jnFkTu4PFMP8T0M4FXCBxpKxmzhCDjnxkOqzAwm3qSmbTOKw5nehgMN0so6shwdV6nV5wQ5zhxLNbpsxNaMuDvYprtx-2s0ErEZC_m7C_mLSfC0e7-5AzO20lwTOdz6zKaGn-ePogkNZAjsw3mkU3nucfxQAL221A7oP9b5u4KuGl76tCF8OjoOELicu4SQyMUdJdTIvNHJ93dWVWGDS7wvJ60VCoxKFf7-2s4IuU6rzfbF7Y0n1cKX2AdWZXcJMsDKTty8spGed5xn52olNVQKzv5GGP5wb_2yKHK5iKYGo9OGfG-25IBTMKmTqtwlmKSCjClKvNHY0j1Ad5iPZdqNa_G6OSe8e45Zi7mrGckIJ3PUapm1EuRe9bRab8eNxifw0aTBrT0x5CsOLW0IMAgn6X0dbZpdQwBo6Cn96_6QLv2BfufZzdFBfM4zqOcelPitBSjWLtIiqeImaNi4IXP4Efa1XUD_YMV3TvDXWTPS5ROteSXq1mVSL8JSMxr54Z9c82a6Aa0TXUplFyFChb498ZHW_TJ9ttsOg387HsZO6oLbHKXwu4qDK78whCqgb1yQHXgFfweRwdUCm2uz4k6gxKclAa2ttKUC-2aloucbs1Kr14ULKcPCNqkkhCENG4CR9MiCLM1SdD5q4jCUcB0PiC80koTUIpCkvnujFnIRCRpHsnscD4p_o4mjAHc622JqiqdmqTbCdw2799nnCFsYsE28GBKyb8Ijcmp0kRBULpaoiKXCwv_lmzm0meTtQZ06FQHt4r_fALuiE1_eaBaJOBVa_2e42pl3VTvlRYLtira2RLlVemqq39O1ApohT7yQv3sRh21uDBpMmn_COmXn8RRH5Gzl4EsBYZ6-KhWjcNu7VP1jfATQXJEt5j3BItArSFUCIdQ64h6x5UqiLgDZy8jTNt3_f4GvWQ9AphewLP--cRhMde7UcchngceNPPk4koPjfWOcejY7u_paHpQ6J_svnEr2WGAcAYlus0c62G3cTIZeStBwAKnHIHxrurrakn6p9JGCvlmQY_ziqnSlHQjFjbPJ0Qo4-q6HImpUdzK-zwjtr9Yl7HD_gBHLNMz5hKp5M4_Ro3etfRXsAIap6bk82BPICJHXOIZ5ayq_BNb8tXe05VG75NIBHVxwHcqv2XO6ajeIgRSJPySOOUjR19b1lkYV6mjZaPQAOj23NgePHCnDAKE4XDG1tkU1pTeNJVCo7u3nYCD3va1NGNAuz0k0aLRZeVAPk7vyJE4CrOYjjnM3ft-x0tuJ9fYTMhxtb9i_CyU_lOKF36XPWUp8JD9RxgulOxXpfFXtBQl1_1798rfKrs66wjB-YSutzsTQAYYzQvgepO3BPervF3S_x0F38yadZ3xTydrlHhnufj9Ux95MfQjHX9sVt86-P8XYUnhjysDfS8GILMZu6XPwWKg-SCWy2PekR8wkVUcrTbA7LyksxDgtPNmyPdCQDrOsyeG2GnDFIRjfyMTgSt7h5Iryou0qd5HvnNu0AwJAEXsdkIU5I_pOz5258Ga4M-c5wccI0FVnm6SStccXxNJxAB44lLokS2KSxRlGF5nJU6uUEiPk7XDBHZiZwOjbhgfHNIkU_yp4ZI4--G1yl6peumucY7hYT0d1KAcmgLAjAwqDmkCuF4PQ5kQlIzQqBAR27Q1lMlhEO1ZayuJgvyQPI3uvTy-F8iPt_tWykz-qI68p0D4JPNFB3_EdjRwXNVzW5J8iABtNQIgaDs6LWUN1omVHsSy5TA36iGOXEMwy1dWZ27fdgF8Sh84PQXZfFgxKZO28KnvgDx8qRDPEh_aFfNvLN-gojhKtKZ3fd2S2mCgW9Bdrw9aoI8NA9B-UuYcOX6h0KNIAEXGr_cxflPM1intS7n8hBPQViOjwloq3WrXgd_EbeC8LU8mZwmbOJueWPc8ijMkLGLju-gCCWLDtTQrZVYIN-TOKfUkrq4abWZs5z7oXDpVuy5NGsLmtsBrKwynMOW2svsbX08itIevSXdeoVe8DgOt74Y4A3kXnZ35rhw7g4qyJxaY4r7X-rKQ92-t2djIioHZ5gNE2CX8ElvMa_JqLZfjaA5PlCw8MrqKmOLWPFgOYSoHfClasZIqFetRPKUQsfR_62b3ME1UelpNTged7bNN7uAjx0hZp1TClByh1fJEbtihNU8heUxwjuGz4ytOC0GlC31NlQ69WAlaQwLXVrD8qnl417Gt7__XLNgmGFFqGQvI4ESs-vnMOyvx48fHSiHeq2We7NQKD4GYtZIJ6wjs62v2igxsRMg4gKbx8aAiLLX04a3XFknjHj3EiXd0F3nO8frXB5rqAl4lSDUO87BQbIGy_ky9JHWlioMXBONk_6WRwshnGut-607yjJYYeO6HKGa2vh_ry-BMH7rsGGlbZZJKyNodo48luhts67utcq7gUmuJcXvm2vqBl6mXlKP-74uAlnIgBhFa0AEtR-ST1u1_lHfRSxcgfKXwNaC0QGpv5AxftbOBxty6YH5OjfJwpO9v9dyDfSCY8vJsv6KkJfun6gYkTdktlOpDhPGXNoFvZGG7Ob4r2phkjwcGDJSJ92bXrKsnV7E01Hf_s6chxS9nXKZdPPHKqDfOboNecgPMRNMS8UWgBpdjA411hVYTcfeOXGSYY8rqQuYAPRvRtx0ci_J4z6ClFs9TXg-m2dTMrV2ybMHswPx9XYZsoiSimhXkGBDA_N6GE_kJoHFl4I8Bf8jutgrMUAHlPDSsbBDYySuAiSPCulPCaeh-6gB_Wl3RB6FaYciwUSBUFB0e-7wr92Op3LFslt9DgnsAmzQVz59mgg8rGWbV7VjnJT-VEg2cwI9LI-HwvhYWbSSiKvOGiGSq9xB_KLre68Yv0E97PpgJfm3qWPk_pbUwj-xoCeig14Pt1VsQeBNduzxXuRa1DjJM9pPtCQt2MHwNy1WMMz1XvCPuy-EXF1ID3uxCisAgjS_DfbXpT-XJhJlffvqTaOiPy-I-tPppbr4mMHBRt3HK66qxLIWaive3uImZaTtN_UU91oY9v0NErcor8jDhP5t1B4JTKP65LmoV0arfQpsbYdlZGffRmqiMgTnZJVlRuqzVRu38PRuuqWD0FUhybnDjCB50mLawQwygrgEdQfG9xt30Uh722QnuHVaCgDRdlZE1Bff5FW4utGssfQP70dx6KMcxHf782XtI0TmylJeepVGHYJziflXgMUOyV4k21GFcX9gD3YPWzqP189G6T2L5GmRY-12uQ25s-M_QHpNRDNem37q4oyKyVZLDIrqnevg2RlpRspssDXhp-kMlMmwA6OGknr1P2h1Z__hy0PQ28ZXn9RCEuTGduc5ErXJzwb7fEiivfESRc2Aj94TL8UsdVPrAa9oylxRdI-jrnDBSCp1KOeMA-dW9CEtu9tj7q12oP8vmElfjvsstbEN21oligbkk1Rc1Je0ljL3ouJdPgL4GVBJ0fqmyo4xkAB8rwUjtMdHTCVxbvxDX7MmH6X7lPLHNXq2QAGmF_3WXFX4AIQcxOywMSHmki76W8rlOfaXyM-UZi0nYe8Gnm9zgCeNWSszBZHD3WQCawAFGfgmyfBBJ1jZMXSPJVefdsl7f6ZL6CbIpxpEtdDO9r-Sji-6_FrJTWPDh4Fgbq9pbqObqCRehjt1gZrj4Wf7Ze_oMfIpG9fsNAMaJ7g
+w0Pvol_PMrhZs2lekCWqQXlCER7HumFrpQADqdR3Gl1WAhHS8FVCn9z5BO1s-7ufH0gkM4Z25B_W9G2lcZTRqSIDWMBkPiOyFUsviTUL9uO14snMgXA2nz_2aeP12bcInpTHRsdjg6fuA3-F2M9gX_IRQn_g2vLe-zPBQHQrGoyfFDHeGiMZRMUOLaZHHfZ5KeAkQD8odfm-tpghjpwU6j9XMaOAf7CqHfOSyM_z1AfSwYkvbRk22-o57DTKs51pKr82tdGihznE_XWVmIASvVYHJmLbixj7oWDOXRXsva0Hzi0jAaceTUbVKaUTy815Y-krtFeN-wjy8h87jqI8_1mFzUgROHbcXpTT1VfcIa36iIErdz3LwXnGKax7x5__Go4C2-PtaXz_r2zxKg_8GV6c5WtpuYuKzO4cSXP8QHDrpHV-ojHl6IaUEvDd3kA7oUpTBjToWptJsqFTjCmnJ4E69rlj2jZg-WotdtCIvu5-VXTOW5YSnblbVGLfxKuKWA7IS1QE_AyeM6uAxmEfmh1UZYtx3u6A0YqJv5tOikkQ1YGPOBvvYjS9B30u_JLRHTrX59QC0yafrniBfP71gzF1jL5Bus5TIMUZFI9RIlsp0upbpj9ov_40pOUdPEa_vOdyGH4VK2l02ZKQYd7dKtbkChah1eXAleG4WDKWphjfU_OV3uE2XAkPTnhAUj3-pkrJHDNUFIbJa63JTyHeXej0LVPp5jqQ19clp1DkqAyLECT_XP44CKTy0jn7tFx7BhT3ZS3F2urzm79Js4rNmKOyd-lZtdI0r77LQrX8NikQRk1AmKNJJNjZUKLzm7LUr1B1AlYXHorz8V8Bi4UzKP11ZTWTIGWGZgpJtULxyxpSgoXxMOog3YtklCMxFXLDTZjXcktzYWUFqLEAUX0tLW622fBwl2C1yaR895AM5zonTQUoWhSsBDKhJdVeORpfujenZyRMpS3zt_a97NcAizTCxp1TTpQM5Eb4ZHydGZOD_sfQQsxBO2xQR4mNiTuF4dAnHbl08AZqyl0sRQ-DiBeozhGl12TcIsM3m0_JxaJMp_2j-spssasvuakETEv3Zx6YhiRkSfBgKZO-dZOXxVFM_D6zzoudFq4oH-JoGmrWDCviKjVog4ESV-6FXpQCthkGACuJ3N7a-T3cAI0kMOjmxN_QY7juniEL05KcJGafIyKj-TFuynQvD9TPjtd7N1Nx2e59ymtYKdp4DFhxG-9yeWPydI6L-ojA7hd-R1688mw5NDE4kfCLLDjiN34-NIqsUrSr0tE-IyI-Txv6IEJYXWaSOgv2o2Pjt-ZEgSa8y2IyoPFtWdgl7ZLftoemddSuVr0nHqAns9czH0qG-6zLkbPmj4h0NVrJBocaQnFiQNi3i_t0O_aGEhQVyKNIDQwerd2mVRD5g4wUYunY5rvar5MmacSezA_FT3T1TsSi15mnPzSdwVOAPB0Fx_VlQ3MNJON19824UjuRBVx46jJ2MlHdXoNlpB1Y-P1i4p9ZBfMkayrQBkJMGBnaXwxlY7KeRj4IQZI9LZWXKWj2OkSv1KmM2aDqAZ9uJuJGtI4VMYqyEY6IV_kLWgcmSrWJ4fHPxBpqHylI_tw-9a56r022RJ64M3_7njfwX3Sidw9pn8_9kAmCkZPrjjIoSBItJo2WsXtm4sczLFG2nhA7W79I_F6s0vg_CYqLyl5zUXtrVGRmgjznHBsLpeTpjN0R5UuUOpdAy0pcReqQkq2D4TkBI6SkKwfqUQcqbs_tQFBtkwxj49IPQPQh1v9hRxekoC1xpghaLvQbKKTCWr0c0QKhs7bcj-L2W8wviZOdnGt5HulbXeP4m5YNm7WlYYsfvmLx-R32xldJOk1dxlhU4Bo0deCmBXSvE23ZVLFrmr00INlQuuZJ0Iq65F7y_S8RApCmqtfUALolTSoI7pgFM9zi3r6GD4SpXC4hzNzTwZD_jBFW9V-iYfBEEFx_DiS_NBf2n-f55SxNYYKgiC4EmTchTiPFCtZfooJf5pQ9G96z3VvqCSFvFctZxi5vb1-LN_-c3NBljU-Zz9OgQeXbUUHrBYgzI3xtPzwZMXcPFLlL0KxMlF6K_uoCCBS-acP4N9qjzM_GZsMRrD9DnVGV-_LexzOnohaoTxYe0O8dUR1VU_Ef5Y2_BPSq80utro2bhQyWuhYKdG0TtNSOFO2t3ibcKhlwBaaqnf4QdG4-4oLXfh7cknKZbpt2KZ2E3jGBigYuxqTeXL_jbVn7AMtMR3PIg0FI6-UXLogi05YTTAAYy06LYUOve-IqYyAom1dw3XtQL_CfhnsTqTWaZNethccdlRDLVhVCFizmEfeE-v4rskPE-DdcXjtbbuFkoiNXlXjEKcdldB8SxTDnsL0ynyKwjcvj056xT5p4xG3XTlmtK1hjF6JFF0JqPiKIj5qy234qGm7BhPsm2RKfcNOHpSMKXRHkI2cYBEdibM2ArzOPGxkBwpTbNRu124lnghPo7F2MiBMLvLJu5iSCTxU1aZWfu--oaxx1PUoEbl3ZlNzyRDbGe4LH90ghH39-fkyRSNmzYEg8hCFFxtTFNx_yy3zHyL5AsSL1gi3UUnWJIiT64HStdRaYAxq1iH6k8yFXtB7uW90aVsxnMcJ_lzNSidtheeVmPknd27B7i-QbFRBE8epflLkc10BZFHNs0REK31QEr3BdUp_yW5N5w10QHz6oHpa7CIjM5Rq4ED0EbdtQ_pJ4n-Gp07qtpaBg07b7HxazRYFR956qfjuoNWysuGfmSuZJYUR0hwXY2aFPaUWERaFbCmbDa5a-FbEfacHPlARmh13N2WliobJgNXIY_lxI6E73kMwrYroeA_SmpNAYdDf2DKr1s6a9MTOZXqc5qDZuhTdmubi2aGAEodVBgBEMR2KDBMyQ919FOA-GaauQ75VBtspDIF7ms_NQqIb9hegz3pBDqoajuyj-4PTIhp-MRGemn79loJTIzG5GLMvbDtzFzeZqR9_Ggg_6L6FVRpD9TpzsFwZad4wjE_a955DVae95Q65daSD9Gea-JyxPhkeUMp4TNQ1Z0vgEmWAD6Gclt_7HIHzDCeeQ5abniHXEswmiDKl7a7zvXYYSG3brK-sAkfpYXiwgFg89VKXSZrll9_RMPSyNb-4MXO63jdaNqj-QSg3Y1ZcoHiGvrAy-isc_tX_zGAd5pqRFUxqnYwySX5RwspMF889BQ88Efo6FHXhrzqOoBgXe_e7UKVbL-xkhlbeIzZtIhw1r7DtX-blhIFANotRkFImrc2f3p_gbBCu905cagKApt6Mc7Ww7L2fxhKx0idTVeZFjsSMGjzMFyNMDB42PadCVg3EUvultCjf1h3kd1zS5Eda-SYE4e9DADH58XjnNthQUEMtAl7sWsEDONPjURnfDbzRsFuPeChxc3nAIceb9WXVSqzO7SXFBaaj3rErpyfwB-anKFazhucVGzSlqANrA_2FsFFgnfJyrAAdgdttD6iFnWtbFdjvedN-rwfx6JSUo5Z2alNzO0NMCUAqj-ryvkD0h_d-ewLY1KWNUDZztHETCjj8trDIVJpqOSrWdc99xQCRpO5ftIpcKzBb0OcE5n9HkjoQ9-vFgWcLpsLwo-_u5Xz0dBXLRvVUqDGy9aT4Ve4vs7x9FTzXkjcOO7ZbD7-dkQ0x-lbZCuMaphWatCip5AhXNto7ohzjIk-xuafxL3jF93Gt-fkQL8jwerkHmGxSB4u6BEazxlrDCcHN1ajodtW0WpW3udWtrMs6dTvbBViDKcNOmwiG9LDdN-jLQqhYBg-1Wwifs_PRutj0keJtabPSb8SxCw6Ob1PSNsfyG1u1d15o2HvXAAOuE8bZEntOu7Jhn_q9A0yBXwRgjzSSqG1m_quJam5o0y-2VRhDHQTAKkHUrbla69kmeHaITtCqpM0ASP1zI7roJDaparFWMpmrpG-hdpUFnAT7nHe5Usl_5ZsH2n-gobqirZtF_r_87ameqqREA9-M7Qi9YPZa_YoK0_emL4gu_8VFlqWVQQ8-9T2I4mKF8KJl_d59Omxf4aZ3anhkSTPY382y-ASr-WuKgdctwZpEO_D6JNsp-M8RORY3tD6hdwYBpD56_sKKJAxzsphvWtexSamiTJQUS9my7NwHhs3-gqHPW7umm2ZisFik3czEjmTfqbos6AvLI26dFY1wzySjWHUmT2BAhdMOYClUrVcESQrfoAhBkYGUsVuxYX5wfm6wDgvR-t_urqjy7foHjfVO8aOwfc9WDhOAakGGviag5gN14MeBzJ95rOeP2uBWMfqj00z-phsD2i6T1_4Ge4ktmYCsYzO5jfad7p-O1qE2xydKomrsYIaNjKe599vVzeNGrlqxprZXnd2Cf0nP8pOrGZqecDhMWhTh-8SDFHronJ50fkvQj2TACQNwKpeeqHvoTCk1UU3JsE2mwS9EgUet84nWdWc8M9Pj--UAVKqYeVj3RX9KVx6D52V5ZIIb6T14qs8hOLtWgvXiu0dA7GEEhCr2ivVMmTyUiUGqD-BgsRu8IrpDOBRubmld2nfay0waUoXeqO_2r_7wzmbzvFAt4S5f_52xo9JRx2k03gs92JKbBKI0X7Y6QZVGCXCFyzYLC9xr_70yvcpnnIH7hjrj43nYxH0Wg1Vlahsvz_THjn3JTdMkTudLCUqATxPJHTBBFp-IKjEjs2qhyB5y8tpoN_LPYaBWCX4Mqqc6iCw16oRuIiiK-1K_MsFbMPm3U4nT3uMPVqDYComRCF4F6YTeHOoitiWPgrCBz11cntx_5TNNlf_TnKDIANCRoR0VbR7xsh5EBKied5Han62pHf-WFULmKhg_aBIykic11ccpkdubdjyg81LbmsOy4L_9GcfrWf4POnAzzAVBCBaY9Ua5FmYDBw8CAdF3_0uVRqRiBsRbC2wZoiFfYOw9yuV_GbVrkf0c72h6P3sJ6Vl8ofs95CtX5u_RyupeEnnHjXr-PP_crCieXZYkvYgms0uK0O0F9S7cM_vx15FopBjxiV0vRZLuIrbnkmw73dccetw-UvLcIK12vjrDekuJY6ZIkOdiDHng81KgWgJ51uDxwku37iqAO9q5AbXqC06UKieaumJcP3FjAU2kjoQYymQakf_O5SZTM17BL3fWs5jnQwmiFcUvrU6q4ChcCM3BCe5VpK7SUsoOx-_wFOwpww27Fi0d-3BEwYzvXHTFN5L3zLeB97ugjlbv5rVVp6qwusBjvy6Qxu4XLuM51Hyp8vEsNlMWJz5AkbX0fuL8oNx4tKSEJeF00Ymi-JdSQH7mnuBE2C5oafNzFIvl8kfeFyo5W4r53xycRlRu57ZA_H0IApG8sIqpHAz992gZq2ecIo20_jYl3GGMGcuQRYBNwwEXEjK4PLrvcmgMPyjiVdfYHLk3ftXyflZKbw2c1v9kRsevtdmBxDyiboM77j-bxPkYwbf4SJPKalJPEPW4R8RgKKqWvPOI2IhxC1LnK86HRxzCbRXx6HbfgxizI79qOUA4KcDQFBNSbrNfT20zsliDr2QjKYFt1gDdHHujUHm4X8zPrBTKdAulLLdgD17nQOdFp9dVAFqRSn4qE_9IhpPGRU4MQbk-86GFgpo9otDQjb_X8ybre0XagtixjOe5SJgejYlVxEC_ACh0Qtt5czDkVV1yQSYwdf2n1izDN2IGCkbRtRUl5lXCuyxM7v_iUohyp6OKKdKo2gY9-RV4dZLBiHW62K-UI4rctV1IsDtoWALNtZ27tkHdeQs_QltCOVk16_Mkpv3RTz0hhjqpFanYTgow95zjk7otY_nY9MdaqtHjyy3OPU2nvJln-Vkx7p2WgsslBbeu5L2hzR04LDo_0PqrQ8ujkieXZGPa86YST0aeEj853YB4KKSnlUjEIAj-p1iCT_hxE_rIXTW6DxvKNXQqtMZEkHcY5t0HEa_4M2S6G5QCXqZMboDeMof8LEZTrTAgweeHwdi-zqvwl059_WylZY4-e3x3OKm108UpNV-qxvno_ZqsQozY7cCcUe_QMgF9QsoB3DU8lWpvCk964wjAuSRu8FMiy7YcYSEBLOKvdUuIfNjIkQNKnU07OXYBIolPNIBDSlXLPehjYKf_d-U7o_nI6CYtWNg78kT_NZ58_I3PepTKqEqy9FYkXnwTgtl-lEHGA2aNPOUeIYpaICXyoVVGGbQNX4ekNSOmD2DXoZ7RyrdxO0nSTNJIGKVHnPo1jqqqqKDI7qUKcR6vrFXLaeyKXTjcuT-VW-m1jPCBhhvRRI46T1S32q-ZGjpTsx3UYfA7X3lLxmuvDWu3dR6x_17JvVhjrzDIEHG1bhQwqgJPyW3u9Uuh9s3V1bJjur54_-c5_DwGbC59PZ2P_OsrX4Ao9Bjwe8v5MQ0P42P3obyTb9veP9es2ZM8PSfBMRwOzn5wHT_BdhmVJ8jAuX048iqsD32sPQsCpwXmyNWJz26IUpT5N8Ds4RZrWQAmbu4IexZ5QP2jMaeFRKvQJoS4HSYFgZ2OQDu4U9FTxiBBOStQJl5fbX8aR6yIJItz_zALKtdrMt_gmbQcL9YAXNRmmawmMpDyz9J7NBMpR3dAWJqMMyYlKeqX6NFPG17AcROaziHwN1UGLF0XTRX7yovT5_Cr8ZGJ0YUopJ_ydi6SYOIPh0IwPEv8aCswJ55YQnkxEmKEYeAQNvKDGNwgLEy0jgCTYqKj0YMgBNQl16EOXz7VAW0w74-z70hcSeQCn5GK1hGNnxUqLCLxkVihDt3ZczMLtaTRIGLDKA1mHZiKwjYDLYM9bXmAq9jjkggMsYfQ9OpSxTBYEcbzblWNypbPPIG-C9qhrVH9swS-wsiIpQ8hZ56RMFB6rhV4GPu5vpQm_K0zuP0RC-B0kSgpDx_o2vNmqKdHUPM52Hd6t4lbsnzYluMEruIWGT_Jdw9svdNGHLZo5CqqfJPqSOOExb2_XBSXTSlD55Yq4XC51yWtPOBnHRngTm7MfhQxIiiyUWIXoaNB5dmj1vfPn70gaW8jryqHbwDwlapzkqWE87CTYtJfXPXVkqqxbUy3CsfeivC03YnbX24AAorWHLSZ4qXRGK46lYEMdu5cbrLBXSuD6C4-TV1AW1zMTx9JRVecGPrs_2OHTJHx135T8LL0jaxAPMY3T4j84jirKc3-X2Bl802VTrArFUQ92pcIkRspwD9mkOKB7XfyjXP6s_1O5rxKh45g5LVhdqDmlguSzeq9-hk9uMNcrKGbxpa49XhwDRdtvJrn2QYVYGqNfoU8qZXpsCSV0Im0uj-3hET3iDv6RaybHQ2suxf-RoY0C0N7sP8FlV0nNDw4qC9Fgz_sLBI1OWTiRTag2QKgjyIV1ZGtbsO37KODqokVnYge4k_rIQtkuxbNPKGDPMIPJK6nK0QD3ELBEAbujmvQV-Qgs_BuKZ__VRETPXc8FLNvlEm_HSA7EWrQrtzSmXt_tQ5qhytjINVkaot97GVr5jSf8yOrrW5m2et8p_NwbjOxsTRRGt70Q95YZWoElK9flcDjLGsii_fxeu8h7yXXTx0HunlXSvf1s3owSRBT3IR3IG-eTIOAMXZkLg44NSlnmapiNN-J-k2NUoCx3l4dh979y2n7GBdNJa4WXjXs0l2unhKaarZqveTG0GLzaBevTgpAdUaKFmtIvOY05I8KeMzBKUpGmKOPHPmMQUO2EGOiIvkb9
 </script>
 <script type="text/plain" id="default-csv"></script>
 
@@ -200,7 +212,7 @@ const FLOOR_ROWS = {
 const locationOf = t => tableLoc[t] || (DOWNSTAIRS.includes(t) ? 'Downstairs' : 'Balcony');
 const tableTitle = t => t === 'Main' ? 'Hlavný stôl' : t === 'Square' ? 'Square table' : `Table ${t}`;
 
-let guests = [];     // {id, table, seat, nametag, full, side, allergies, prefs, note}
+let guests = [];     // {id, table, seat, nametag, full, side, allergies, prefs, drinks, note}
 let tableLoc = {};   // table id -> 'Downstairs' | 'Balcony'
 let view = 'plan';
 let query = '';
@@ -228,6 +240,7 @@ function parseCSV(text) {
   const header = rows.shift().map(h => h.trim().toLowerCase());
   const get = (r, name) => { const i = header.indexOf(name); return i >= 0 ? (r[i] || '').trim() : ''; };
   const side = s => /groom|ženích|zenich/i.test(s) ? 'Groom' : /crew|vendor|dodáv/i.test(s) ? 'Crew' : 'Bride';
+  const drinks = s => /nealk|non/i.test(s) ? 'Nealko' : '';
 
   const locs = {};
   const list = rows
@@ -244,6 +257,7 @@ function parseCSV(text) {
         side: side(get(r, 'side')),
         allergies: get(r, 'allergies'),
         prefs: get(r, 'preferences'),
+        drinks: drinks(get(r, 'drinks')),
         note: get(r, 'note'),
       };
     });
@@ -252,13 +266,13 @@ function parseCSV(text) {
 
 function toCSV() {
   const esc = v => /[;"\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
-  const lines = [['Table', 'Location', 'Seat', 'Nametag', 'Full name', 'Side', 'Allergies', 'Preferences', 'Note']];
+  const lines = [['Table', 'Location', 'Seat', 'Nametag', 'Full name', 'Side', 'Allergies', 'Preferences', 'Drinks', 'Note']];
   for (const t of tableIds()) {
     for (const g of seatedAt(t)) {
-      lines.push([t, locationOf(t), String(g.seat), g.nametag, g.full, g.side, g.allergies, g.prefs, g.note]);
+      lines.push([t, locationOf(t), String(g.seat), g.nametag, g.full, g.side, g.allergies, g.prefs, g.drinks, g.note]);
     }
   }
-  for (const g of seatedAt('')) lines.push(['', '', '', g.nametag, g.full, g.side, g.allergies, g.prefs, g.note]);
+  for (const g of seatedAt('')) lines.push(['', '', '', g.nametag, g.full, g.side, g.allergies, g.prefs, g.drinks, g.note]);
   return '﻿' + lines.map(l => l.map(esc).join(';')).join('\r\n') + '\r\n';
 }
 
@@ -275,8 +289,9 @@ const byId = id => guests.find(g => g.id === id);
 // ---------- Rendering ----------
 const escHTML = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-const isHit = g => query && [g.nametag, g.full, g.allergies, g.prefs].some(s => norm(s).includes(query));
+const isHit = g => query && [g.nametag, g.full, g.allergies, g.prefs, g.drinks].some(s => norm(s).includes(query));
 const seatClasses = g => `side-${g.side.toLowerCase()}${isHit(g) ? ' hit' : ''}`;
+const NOALC = '<svg class="ic" aria-hidden="true"><use href="#noalc"/></svg>';
 const flagSVG = g => g.allergies ? '<tspan class="flag-a" dx="3">✱</tspan>' : g.prefs ? '<tspan class="flag-d" dx="3">✱</tspan>' : '';
 const seatAttrs = g => `class="seat ${seatClasses(g)}" data-gid="${g.id}" tabindex="0" aria-label="${escHTML(g.nametag + ', ' + g.full)}"`;
 
@@ -366,23 +381,25 @@ function planHTML() {
 function dietSummaryHTML() {
   const count = re => guests.filter(g => re.test(norm(g.prefs))).length;
   const special = tableIds().flatMap(t => seatedAt(t)).concat(seatedAt(''))
-    .filter(g => g.allergies || g.prefs);
+    .filter(g => g.allergies || g.prefs || g.drinks === 'Nealko');
   const totals = [
     ['with allergies', guests.filter(g => g.allergies).length],
     ['vegetarian', count(/vegetari/)],
     ['vegan', count(/vegan/)],
     ['child portions', count(/detsk/)],
     ['no meal (baby)', count(/bab/)],
+    ['non-alcoholic', guests.filter(g => g.drinks === 'Nealko').length],
   ];
   return `<div class="card wide"><h3>Alergie a stravovanie<span>for the caterer</span></h3>
     <div class="totals">${totals.map(([label, n]) => `<span><b>${n}</b>${label}</span>`).join('')}</div>
     <table class="diet-table">
-      <thead><tr><th>Table</th><th>Guest</th><th>Allergies</th><th>Preferences</th></tr></thead>
+      <thead><tr><th>Table</th><th>Guest</th><th>Allergies</th><th>Preferences</th><th>Drinks</th></tr></thead>
       <tbody>${special.map(g => `<tr class="row ${seatClasses(g)}">
         <td>${g.table ? escHTML(g.table === 'Main' ? 'Main' : g.table) : '—'}</td>
         <td><b>${escHTML(g.nametag)}</b><br><span class="full">${escHTML(g.full)}</span></td>
         <td class="al">${escHTML(g.allergies)}</td>
-        <td class="pr">${escHTML(g.prefs)}</td></tr>`).join('')}</tbody>
+        <td class="pr">${escHTML(g.prefs)}</td>
+        <td style="white-space:nowrap">${g.drinks ? NOALC + ' Nealko' : ''}</td></tr>`).join('')}</tbody>
     </table></div>`;
 }
 
@@ -392,6 +409,7 @@ function listHTML() {
       ${g.full !== g.nametag ? `<span class="full">— ${escHTML(g.full)}</span>` : ''}
       ${g.allergies ? `<span class="al">Alergie: ${escHTML(g.allergies)}</span>` : ''}
       ${g.prefs ? `<span class="pr">${escHTML(g.prefs)}</span>` : ''}
+      ${g.drinks ? `<span class="dr">${NOALC} Nealko</span>` : ''}
       ${g.note ? `<span class="note">${escHTML(g.note)}</span>` : ''}</li>`).join('')
   }</ol></div>`;
   let html = '<div class="list">' + dietSummaryHTML();
@@ -409,7 +427,10 @@ function render() {
   document.querySelector('main').classList.toggle('searching', !!query);
   document.getElementById('plan').hidden = view !== 'plan';
   document.getElementById('list').hidden = view !== 'list';
-  if (view === 'plan') document.getElementById('plan').innerHTML = planHTML();
+  if (view === 'plan') {
+    document.getElementById('plan').innerHTML = planHTML();
+    placeDrinkIcons();
+  }
   else document.getElementById('list').innerHTML = listHTML();
 
   const people = guests.filter(g => g.side !== 'Crew');
@@ -420,6 +441,25 @@ function render() {
     (crew ? ` + <b>${crew}</b> crew` : '') +
     ` · <b>${guests.filter(g => g.allergies).length}</b> with allergies`;
 }
+
+// The non-alcoholic icon sits right after the name, so it is placed once the name has been measured.
+function placeDrinkIcons() {
+  document.querySelectorAll('#plan .seat').forEach(el => {
+    el.querySelector('.noalc-ic')?.remove();
+    const g = byId(+el.dataset.gid);
+    if (!g || !g.drinks) return;
+    const text = el.querySelector('text');
+    if (text.getAttribute('text-anchor') === 'end') {
+      // Names left of the table end at the chair: shift them left to make room for the icon.
+      text.dataset.x0 ??= text.getAttribute('x');
+      text.setAttribute('x', (+text.dataset.x0 - 19).toFixed(1));
+    }
+    const box = text.getBBox();
+    el.insertAdjacentHTML('beforeend',
+      `<use href="#noalc" class="noalc-ic" width="15" height="15" x="${(box.x + box.width + 3).toFixed(1)}" y="${(box.y + box.height / 2 - 7.5).toFixed(1)}"/>`);
+  });
+}
+document.fonts?.ready.then(() => { if (view === 'plan') placeDrinkIcons(); });
 
 // ---------- Hover card ----------
 const tip = document.getElementById('tip');
@@ -436,6 +476,7 @@ function showTip(el) {
     `<div class="tm">${side} · ${escHTML(where)}</div>` +
     (g.allergies ? `<div class="ta"><b>Alergie:</b> ${escHTML(g.allergies)}</div>` : '') +
     (g.prefs ? `<div class="td"><b>Preferencie:</b> ${escHTML(g.prefs)}</div>` : '') +
+    (g.drinks ? `<div class="tk"><b>Nápoje:</b> ${NOALC} nealkoholické</div>` : '') +
     (g.note ? `<div class="tx">${escHTML(g.note)}</div>` : '') +
     (!g.allergies && !g.prefs ? '<div class="none">No allergies or preferences</div>' : '');
   tip.hidden = false;
